@@ -1,4 +1,17 @@
-/* ===================================================================
+"""
+Fix-all script for SpopyFly — writes via temp files then renames.
+"""
+import os
+import time
+import tempfile
+import shutil
+
+BASE = r'd:\Documents\GitHub\SpopyFly'
+
+# ═══════════════════════════════════════════════════════════
+# 1. script.js
+# ═══════════════════════════════════════════════════════════
+SCRIPT_JS = """/* ===================================================================
    SPOTIFY CLONE - script.js
    Pure Vanilla JavaScript + YouTube IFrame API
 ===================================================================
@@ -285,8 +298,13 @@ window.onYouTubeIframeAPIReady = function () {
     height: '1',
     width:  '1',
     playerVars: {
-      autoplay: 0, controls: 0, disablekb: 1,
-      enablejsapi: 1, modestbranding: 1, rel: 0, showinfo: 0
+      autoplay:       0,
+      controls:       0,
+      disablekb:      1,
+      enablejsapi:    1,
+      modestbranding: 1,
+      rel:            0,
+      showinfo:       0
     },
     events: {
       onReady:       onPlayerReady,
@@ -302,7 +320,9 @@ function onPlayerReady() {
 }
 
 function onPlayerStateChange(event) {
-  if (event.data === YT.PlayerState.ENDED) handleTrackEnd();
+  if (event.data === YT.PlayerState.ENDED) {
+    handleTrackEnd();
+  }
   if (event.data === YT.PlayerState.PLAYING) {
     state.isPlaying = true;
     updatePlayPauseUI();
@@ -334,19 +354,20 @@ function loadTrack(index, autoplay = true) {
   });
 
   state.currentTrackIndex = index;
+
   state.recentlyPlayed = [index, ...state.recentlyPlayed.filter(i => i !== index)].slice(0, 6);
   renderRecentGrid();
 
   document.getElementById('playerTitle').textContent  = song.title;
   document.getElementById('playerArtist').textContent = song.artist;
   document.getElementById('playerCover').src          = song.coverImageURL;
-  document.getElementById('playerCover').alt          = `${song.title} album art`;
+  document.getElementById('playerCover').alt          = song.title + ' album art';
 
   document.getElementById('overlayTitle').textContent  = song.title;
   document.getElementById('overlayArtist').textContent = song.artist;
   document.getElementById('overlayArt').src            = song.coverImageURL;
 
-  document.querySelectorAll(`[data-index="${index}"]`).forEach(el => el.classList.add('playing'));
+  document.querySelectorAll('[data-index="' + index + '"]').forEach(el => el.classList.add('playing'));
 
   document.getElementById('progressFill').style.width = '0%';
   document.getElementById('seekBar').value            = 0;
@@ -355,7 +376,7 @@ function loadTrack(index, autoplay = true) {
 
   state.isLiked = false;
   document.getElementById('playerLike').classList.remove('liked');
-  const likeIcon = document.querySelector('#playerLike svg');
+  var likeIcon = document.querySelector('#playerLike svg');
   if (likeIcon) likeIcon.style.fill = 'none';
 
   if (autoplay) {
@@ -371,12 +392,17 @@ function loadTrack(index, autoplay = true) {
 function playPause() {
   if (!state.ytReady) return;
   if (state.currentTrackIndex === -1) { loadTrack(0); return; }
-  if (state.isPlaying) { ytPlayer.pauseVideo(); } else { ytPlayer.playVideo(); }
+
+  if (state.isPlaying) {
+    ytPlayer.pauseVideo();
+  } else {
+    ytPlayer.playVideo();
+  }
 }
 
 function nextTrack() {
   if (state.isShuffle) {
-    let next;
+    var next;
     do { next = Math.floor(Math.random() * songs.length); }
     while (next === state.currentTrackIndex && songs.length > 1);
     loadTrack(next);
@@ -389,13 +415,18 @@ function prevTrack() {
   if (state.ytReady && ytPlayer.getCurrentTime && ytPlayer.getCurrentTime() > 3) {
     ytPlayer.seekTo(0, true);
   } else {
-    loadTrack((state.currentTrackIndex - 1 + songs.length) % songs.length);
+    var prev = (state.currentTrackIndex - 1 + songs.length) % songs.length;
+    loadTrack(prev);
   }
 }
 
 function handleTrackEnd() {
-  if (state.isRepeat) { ytPlayer.seekTo(0, true); ytPlayer.playVideo(); }
-  else { nextTrack(); }
+  if (state.isRepeat) {
+    ytPlayer.seekTo(0, true);
+    ytPlayer.playVideo();
+  } else {
+    nextTrack();
+  }
 }
 
 function setVolume(vol) {
@@ -420,8 +451,8 @@ function toggleMute() {
 }
 
 function updateVolumeIcon() {
-  const icon = document.getElementById('volIcon');
-  const vol  = state.isMuted ? 0 : state.volume;
+  var icon = document.getElementById('volIcon');
+  var vol  = state.isMuted ? 0 : state.volume;
   icon.setAttribute('data-lucide', vol === 0 ? 'volume-x' : vol < 50 ? 'volume-1' : 'volume-2');
   lucide.createIcons();
 }
@@ -444,11 +475,11 @@ function stopProgressTracking() {
 function updateProgress() {
   if (!state.ytReady || !ytPlayer.getCurrentTime) return;
   try {
-    const current  = ytPlayer.getCurrentTime();
-    const duration = ytPlayer.getDuration();
+    var current  = ytPlayer.getCurrentTime();
+    var duration = ytPlayer.getDuration();
     if (!duration || isNaN(duration) || duration === 0) return;
 
-    const pct = (current / duration) * 100;
+    var pct = (current / duration) * 100;
 
     document.getElementById('progressFill').style.width = pct + '%';
     document.getElementById('seekBar').value            = pct;
@@ -456,97 +487,99 @@ function updateProgress() {
     document.getElementById('totalTime').textContent    = formatTime(duration);
 
     // Also update overlay progress
-    const overlayFill = document.getElementById('overlayProgressFill');
-    const overlaySeek = document.getElementById('overlaySeekBar');
-    const overlayCur  = document.getElementById('overlayCurrentTime');
-    const overlayTot  = document.getElementById('overlayTotalTime');
+    var overlayFill = document.getElementById('overlayProgressFill');
+    var overlaySeek = document.getElementById('overlaySeekBar');
+    var overlayCurrentTime = document.getElementById('overlayCurrentTime');
+    var overlayTotalTime   = document.getElementById('overlayTotalTime');
     if (overlayFill) overlayFill.style.width = pct + '%';
     if (overlaySeek) overlaySeek.value = pct;
-    if (overlayCur)  overlayCur.textContent = formatTime(current);
-    if (overlayTot)  overlayTot.textContent = formatTime(duration);
+    if (overlayCurrentTime) overlayCurrentTime.textContent = formatTime(current);
+    if (overlayTotalTime)   overlayTotalTime.textContent   = formatTime(duration);
   } catch (e) { /* player not in a seekable state */ }
 }
 
 function seekTo(pct) {
   if (!state.ytReady || !ytPlayer.getDuration) return;
   try {
-    const duration = ytPlayer.getDuration();
+    var duration = ytPlayer.getDuration();
     ytPlayer.seekTo((pct / 100) * duration, true);
   } catch (e) {}
 }
 
 function formatTime(seconds) {
   if (isNaN(seconds) || seconds < 0) return '0:00';
-  const m = Math.floor(seconds / 60);
-  const s = Math.floor(seconds % 60);
-  return `${m}:${s.toString().padStart(2, '0')}`;
+  var m = Math.floor(seconds / 60);
+  var s = Math.floor(seconds % 60);
+  return m + ':' + s.toString().padStart(2, '0');
 }
 
 /* ===================================================================
    6. UI RENDER HELPERS
 =================================================================== */
 function updatePlayPauseUI() {
-  const icon = document.getElementById('playIcon');
+  var icon = document.getElementById('playIcon');
   icon.setAttribute('data-lucide', state.isPlaying ? 'pause' : 'play');
 
-  // Update overlay play icon
-  const overlayPlayIcon = document.getElementById('overlayPlayIcon');
+  var overlayPlayIcon = document.getElementById('overlayPlayIcon');
   if (overlayPlayIcon) {
     overlayPlayIcon.setAttribute('data-lucide', state.isPlaying ? 'pause' : 'play');
   }
 
-  // Update card states - FIX: target <i> not <svg> for icon swap
-  document.querySelectorAll('.track-card').forEach(card => {
-    const idx = parseInt(card.dataset.index, 10);
+  document.querySelectorAll('.track-card').forEach(function(card) {
+    var idx = parseInt(card.dataset.index, 10);
     if (idx === state.currentTrackIndex) {
       card.classList.add('playing');
-      const btn = card.querySelector('.card-play-btn i');
-      if (btn) btn.setAttribute('data-lucide', state.isPlaying ? 'pause' : 'play');
+      var btn = card.querySelector('.card-play-btn i');
+      if (btn) {
+        btn.setAttribute('data-lucide', state.isPlaying ? 'pause' : 'play');
+      }
     } else {
       card.classList.remove('playing');
-      const btn = card.querySelector('.card-play-btn i');
-      if (btn) btn.setAttribute('data-lucide', 'play');
+      var btn2 = card.querySelector('.card-play-btn i');
+      if (btn2) btn2.setAttribute('data-lucide', 'play');
     }
   });
   lucide.createIcons();
 }
 
 function createTrackCard(song, index) {
-  const card = document.createElement('div');
+  var card = document.createElement('div');
   card.className = 'track-card';
   card.dataset.index = index;
   card.setAttribute('role', 'button');
   card.setAttribute('tabindex', '0');
-  card.setAttribute('aria-label', `Play ${song.title} by ${song.artist}`);
+  card.setAttribute('aria-label', 'Play ' + song.title + ' by ' + song.artist);
 
-  card.innerHTML = `
-    <div class="card-cover">
-      <img src="${song.coverImageURL}" alt="${song.title} album art" loading="lazy"
-           onerror="this.src='https://via.placeholder.com/300x300/181818/535353?text=No+Art'" />
-      <button class="card-play-btn" aria-label="Play ${song.title}">
-        <i data-lucide="play"></i>
-      </button>
-      <span class="card-now-playing">Playing</span>
-    </div>
-    <div class="card-body">
-      <p class="card-title">${escapeHtml(song.title)}</p>
-      <p class="card-artist">
-        <span class="card-equalizer">
-          <span class="eq-bar"></span>
-          <span class="eq-bar"></span>
-          <span class="eq-bar"></span>
-          <span class="eq-bar"></span>
-        </span>
-        ${escapeHtml(song.artist)}
-      </p>
-    </div>
-  `;
+  card.innerHTML =
+    '<div class="card-cover">' +
+      '<img src="' + song.coverImageURL + '" alt="' + escapeHtml(song.title) + ' album art" loading="lazy" />' +
+      '<button class="card-play-btn" aria-label="Play ' + escapeHtml(song.title) + '">' +
+        '<i data-lucide="play"></i>' +
+      '</button>' +
+      '<span class="card-now-playing">Playing</span>' +
+    '</div>' +
+    '<div class="card-body">' +
+      '<p class="card-title">' + escapeHtml(song.title) + '</p>' +
+      '<p class="card-artist">' +
+        '<span class="card-equalizer">' +
+          '<span class="eq-bar"></span>' +
+          '<span class="eq-bar"></span>' +
+          '<span class="eq-bar"></span>' +
+          '<span class="eq-bar"></span>' +
+        '</span>' +
+        escapeHtml(song.artist) +
+      '</p>' +
+    '</div>';
 
-  card.addEventListener('click', () => {
-    if (state.currentTrackIndex === index) { playPause(); }
-    else { loadTrack(index); }
+  card.addEventListener('click', function() {
+    if (state.currentTrackIndex === index) {
+      playPause();
+    } else {
+      loadTrack(index);
+    }
   });
-  card.addEventListener('keydown', e => {
+
+  card.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
   });
 
@@ -554,29 +587,30 @@ function createTrackCard(song, index) {
 }
 
 function createFeaturedCard(song, index) {
-  const card = document.createElement('div');
+  var card = document.createElement('div');
   card.className = 'featured-card';
   card.dataset.index = index;
   card.setAttribute('role', 'button');
   card.setAttribute('tabindex', '0');
-  card.setAttribute('aria-label', `Play ${song.title}`);
+  card.setAttribute('aria-label', 'Play ' + song.title);
 
-  card.innerHTML = `
-    <div class="featured-cover">
-      <img src="${song.coverImageURL}" alt="${song.title}"
-           onerror="this.src='https://via.placeholder.com/56x56/282828/535353?text=No+Art'" />
-    </div>
-    <span class="featured-title">${escapeHtml(song.title)}</span>
-    <button class="featured-play-btn" aria-label="Play ${song.title}">
-      <i data-lucide="play"></i>
-    </button>
-  `;
+  card.innerHTML =
+    '<div class="featured-cover">' +
+      '<img src="' + song.coverImageURL + '" alt="' + escapeHtml(song.title) + '" />' +
+    '</div>' +
+    '<span class="featured-title">' + escapeHtml(song.title) + '</span>' +
+    '<button class="featured-play-btn" aria-label="Play ' + escapeHtml(song.title) + '">' +
+      '<i data-lucide="play"></i>' +
+    '</button>';
 
-  card.addEventListener('click', () => {
-    if (state.currentTrackIndex === index) { playPause(); }
-    else { loadTrack(index); }
+  card.addEventListener('click', function() {
+    if (state.currentTrackIndex === index) {
+      playPause();
+    } else {
+      loadTrack(index);
+    }
   });
-  card.addEventListener('keydown', e => {
+  card.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
   });
 
@@ -584,87 +618,85 @@ function createFeaturedCard(song, index) {
 }
 
 function renderTrackGrid() {
-  const grid = document.getElementById('trackGrid');
+  var grid = document.getElementById('trackGrid');
   grid.innerHTML = '';
-  songs.forEach((song, i) => {
+  songs.forEach(function(song, i) {
     grid.appendChild(createTrackCard(song, i));
-    grid.lastChild.style.animationDelay = `${i * 0.04}s`;
+    grid.lastChild.style.animationDelay = (i * 0.04) + 's';
   });
   lucide.createIcons();
 }
 
 function renderFeaturedGrid() {
-  const grid = document.getElementById('featuredGrid');
+  var grid = document.getElementById('featuredGrid');
   grid.innerHTML = '';
-  songs.slice(0, 6).forEach((song, i) => {
+  songs.slice(0, 6).forEach(function(song, i) {
     grid.appendChild(createFeaturedCard(song, i));
-    grid.lastChild.style.animationDelay = `${i * 0.05}s`;
+    grid.lastChild.style.animationDelay = (i * 0.05) + 's';
   });
   lucide.createIcons();
 }
 
 function renderRecentGrid() {
-  const grid = document.getElementById('recentGrid');
+  var grid = document.getElementById('recentGrid');
   grid.innerHTML = '';
   if (state.recentlyPlayed.length === 0) {
     grid.innerHTML = '<p class="empty-state">Nothing played yet...</p>';
     return;
   }
-  state.recentlyPlayed.forEach(i => {
+  state.recentlyPlayed.forEach(function(i) {
     grid.appendChild(createTrackCard(songs[i], i));
   });
   lucide.createIcons();
 }
 
 function renderLibraryList() {
-  const list = document.getElementById('libraryList');
+  var list = document.getElementById('libraryList');
   list.innerHTML = '';
-  songs.forEach((song, i) => {
-    const item = document.createElement('div');
+  songs.forEach(function(song, i) {
+    var item = document.createElement('div');
     item.className = 'library-item';
     item.dataset.index = i;
     item.setAttribute('role', 'button');
     item.setAttribute('tabindex', '0');
-    item.innerHTML = `
-      <div class="library-item-cover">
-        <img src="${song.coverImageURL}" alt="${song.title}"
-             onerror="this.src='https://via.placeholder.com/48x48/282828/535353?text=No+Art'" />
-      </div>
-      <div class="library-item-meta">
-        <p class="library-item-title">${escapeHtml(song.title)}</p>
-        <p class="library-item-sub">Song &middot; ${escapeHtml(song.artist)}</p>
-      </div>
-      <span class="library-item-duration">&mdash;</span>
-    `;
-    item.addEventListener('click', () => loadTrack(i));
-    item.addEventListener('keydown', e => {
+    item.innerHTML =
+      '<div class="library-item-cover">' +
+        '<img src="' + song.coverImageURL + '" alt="' + escapeHtml(song.title) + '" />' +
+      '</div>' +
+      '<div class="library-item-meta">' +
+        '<p class="library-item-title">' + escapeHtml(song.title) + '</p>' +
+        '<p class="library-item-sub">Song - ' + escapeHtml(song.artist) + '</p>' +
+      '</div>' +
+      '<span class="library-item-duration">-</span>';
+    item.addEventListener('click', function() { loadTrack(i); });
+    item.addEventListener('keydown', function(e) {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); loadTrack(i); }
     });
     list.appendChild(item);
-    item.style.animationDelay = `${i * 0.03}s`;
+    item.style.animationDelay = (i * 0.03) + 's';
   });
   lucide.createIcons();
 }
 
-const CATEGORIES = [
-  { label: 'Pop',        bg: '#8D67AB', emoji: '\uD83C\uDFA4' },
-  { label: 'Hip-Hop',    bg: '#BA5D07', emoji: '\uD83C\uDFA7' },
-  { label: 'Electronic', bg: '#0D73EC', emoji: '\uD83C\uDF9B\uFE0F' },
-  { label: 'R&B',        bg: '#C62B2B', emoji: '\uD83C\uDFB5' },
-  { label: 'Rock',       bg: '#1E3264', emoji: '\uD83C\uDFB8' },
-  { label: 'Latin',      bg: '#DC148C', emoji: '\uD83D\uDC83' },
-  { label: 'Indie',      bg: '#477D95', emoji: '\uD83C\uDF31' },
-  { label: 'Soul',       bg: '#148A08', emoji: '\uD83C\uDFB7' }
+var CATEGORIES = [
+  { label: 'Pop',        bg: '#8D67AB', emoji: '\\uD83C\\uDFA4' },
+  { label: 'Hip-Hop',    bg: '#BA5D07', emoji: '\\uD83C\\uDFA7' },
+  { label: 'Electronic', bg: '#0D73EC', emoji: '\\uD83C\\uDF9B' },
+  { label: 'R&B',        bg: '#C62B2B', emoji: '\\uD83C\\uDFB5' },
+  { label: 'Rock',       bg: '#1E3264', emoji: '\\uD83C\\uDFB8' },
+  { label: 'Latin',      bg: '#DC148C', emoji: '\\uD83D\\uDC83' },
+  { label: 'Indie',      bg: '#477D95', emoji: '\\uD83C\\uDF31' },
+  { label: 'Soul',       bg: '#148A08', emoji: '\\uD83C\\uDFB7' }
 ];
 
 function renderCategories() {
-  const grid = document.getElementById('categoryGrid');
+  var grid = document.getElementById('categoryGrid');
   grid.innerHTML = '';
-  CATEGORIES.forEach(cat => {
-    const card = document.createElement('div');
+  CATEGORIES.forEach(function(cat) {
+    var card = document.createElement('div');
     card.className = 'category-card';
     card.style.background = cat.bg;
-    card.innerHTML = `${escapeHtml(cat.label)}<span class="cat-emoji">${cat.emoji}</span>`;
+    card.innerHTML = escapeHtml(cat.label) + '<span class="cat-emoji">' + cat.emoji + '</span>';
     card.setAttribute('role', 'button');
     card.setAttribute('tabindex', '0');
     grid.appendChild(card);
@@ -672,27 +704,26 @@ function renderCategories() {
 }
 
 function renderSearchResults(query) {
-  const grid = document.getElementById('searchGrid');
+  var grid = document.getElementById('searchGrid');
   grid.innerHTML = '';
 
-  const q = query.trim().toLowerCase();
+  var q = query.trim().toLowerCase();
   if (!q) {
     grid.innerHTML = '<p class="empty-state">Start typing to search tracks...</p>';
     return;
   }
 
-  const results = songs.filter(s =>
-    s.title.toLowerCase().includes(q) ||
-    s.artist.toLowerCase().includes(q)
-  );
+  var results = songs.filter(function(s) {
+    return s.title.toLowerCase().includes(q) || s.artist.toLowerCase().includes(q);
+  });
 
   if (results.length === 0) {
     grid.innerHTML = '<p class="empty-state">No results found.</p>';
     return;
   }
 
-  results.forEach(song => {
-    const i = songs.indexOf(song);
+  results.forEach(function(song) {
+    var i = songs.indexOf(song);
     grid.appendChild(createTrackCard(song, i));
   });
   lucide.createIcons();
@@ -702,17 +733,17 @@ function renderSearchResults(query) {
    7. NAVIGATION / VIEWS
 =================================================================== */
 function showView(viewName) {
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(function(v) { v.classList.remove('active'); });
+  document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
 
-  const viewEl = document.getElementById(`view-${viewName}`);
+  var viewEl = document.getElementById('view-' + viewName);
   if (viewEl) viewEl.classList.add('active');
 
-  const navBtn = document.querySelector(`.nav-item[data-view="${viewName}"]`);
+  var navBtn = document.querySelector('.nav-item[data-view="' + viewName + '"]');
   if (navBtn) navBtn.classList.add('active');
 
-  // FIX: Search bar was always 'flex' — now properly hides on non-search views
-  const searchWrap = document.getElementById('topbarSearchWrap');
+  // FIX: search bar was always visible (both branches returned 'flex')
+  var searchWrap = document.getElementById('topbarSearchWrap');
   if (searchWrap) {
     searchWrap.style.display = viewName === 'search' ? 'flex' : 'none';
   }
@@ -724,8 +755,8 @@ function showView(viewName) {
    8. EVENT LISTENERS
 =================================================================== */
 function bindEvents() {
-  document.querySelectorAll('.nav-item').forEach(btn => {
-    btn.addEventListener('click', () => showView(btn.dataset.view));
+  document.querySelectorAll('.nav-item').forEach(function(btn) {
+    btn.addEventListener('click', function() { showView(btn.dataset.view); });
   });
 
   document.getElementById('btnPlayPause').addEventListener('click', playPause);
@@ -742,69 +773,85 @@ function bindEvents() {
     this.classList.toggle('active', state.isRepeat);
   });
 
-  const seekBar = document.getElementById('seekBar');
-  seekBar.addEventListener('input', () => seekTo(parseFloat(seekBar.value)));
+  var seekBar = document.getElementById('seekBar');
+  seekBar.addEventListener('input', function() { seekTo(parseFloat(seekBar.value)); });
 
-  const volSlider = document.getElementById('volumeSlider');
-  volSlider.addEventListener('input', () => setVolume(parseInt(volSlider.value, 10)));
+  var volSlider = document.getElementById('volumeSlider');
+  volSlider.addEventListener('input', function() { setVolume(parseInt(volSlider.value, 10)); });
 
   document.getElementById('btnMute').addEventListener('click', toggleMute);
 
   document.getElementById('playerLike').addEventListener('click', function () {
     state.isLiked = !state.isLiked;
     this.classList.toggle('liked', state.isLiked);
-    const svg = this.querySelector('svg');
+    var svg = this.querySelector('svg');
     if (svg) svg.style.fill = state.isLiked ? 'var(--accent)' : 'none';
   });
 
-  document.getElementById('playerCover').closest('.player-cover-wrap').addEventListener('click', () => {
+  document.getElementById('playerCover').closest('.player-cover-wrap').addEventListener('click', function() {
     document.getElementById('nowPlayingOverlay').classList.add('open');
   });
-  document.getElementById('overlayClose').addEventListener('click', () => {
+  document.getElementById('overlayClose').addEventListener('click', function() {
     document.getElementById('nowPlayingOverlay').classList.remove('open');
   });
-  document.getElementById('btnFullscreen').addEventListener('click', () => {
+  document.getElementById('btnFullscreen').addEventListener('click', function() {
     document.getElementById('nowPlayingOverlay').classList.toggle('open');
   });
 
   // Overlay controls
-  const overlayPlayPause = document.getElementById('overlayPlayPause');
+  var overlayPlayPause = document.getElementById('overlayPlayPause');
   if (overlayPlayPause) overlayPlayPause.addEventListener('click', playPause);
-  const overlayNext = document.getElementById('overlayNext');
+  var overlayNext = document.getElementById('overlayNext');
   if (overlayNext) overlayNext.addEventListener('click', nextTrack);
-  const overlayPrev = document.getElementById('overlayPrev');
+  var overlayPrev = document.getElementById('overlayPrev');
   if (overlayPrev) overlayPrev.addEventListener('click', prevTrack);
-  const overlaySeekBar = document.getElementById('overlaySeekBar');
-  if (overlaySeekBar) overlaySeekBar.addEventListener('input', () => seekTo(parseFloat(overlaySeekBar.value)));
+  var overlaySeekBar = document.getElementById('overlaySeekBar');
+  if (overlaySeekBar) overlaySeekBar.addEventListener('input', function() { seekTo(parseFloat(overlaySeekBar.value)); });
 
-  const searchInput = document.getElementById('searchInput');
-  searchInput.addEventListener('input', () => {
+  var searchInput = document.getElementById('searchInput');
+  searchInput.addEventListener('input', function() {
     showView('search');
     renderSearchResults(searchInput.value);
   });
-  searchInput.addEventListener('focus', () => showView('search'));
+  searchInput.addEventListener('focus', function() { showView('search'); });
 
-  const toggle  = document.getElementById('sidebarToggle');
-  const sidebar = document.getElementById('sidebar');
-  toggle.addEventListener('click', () => sidebar.classList.toggle('open'));
+  var toggle  = document.getElementById('sidebarToggle');
+  var sidebar = document.getElementById('sidebar');
+  toggle.addEventListener('click', function() { sidebar.classList.toggle('open'); });
 
-  document.getElementById('mainContent').addEventListener('click', () => {
+  document.getElementById('mainContent').addEventListener('click', function() {
     if (window.innerWidth <= 768) sidebar.classList.remove('open');
   });
 
-  document.addEventListener('keydown', e => {
+  document.addEventListener('keydown', function(e) {
     if (e.target.tagName === 'INPUT') return;
+
     switch (e.code) {
-      case 'Space': e.preventDefault(); playPause(); break;
-      case 'ArrowRight': if (e.shiftKey) { e.preventDefault(); nextTrack(); } break;
-      case 'ArrowLeft':  if (e.shiftKey) { e.preventDefault(); prevTrack(); } break;
-      case 'ArrowUp':    e.preventDefault(); setVolume(state.volume + 5); break;
-      case 'ArrowDown':  e.preventDefault(); setVolume(state.volume - 5); break;
-      case 'KeyM': toggleMute(); break;
+      case 'Space':
+        e.preventDefault();
+        playPause();
+        break;
+      case 'ArrowRight':
+        if (e.shiftKey) { e.preventDefault(); nextTrack(); }
+        break;
+      case 'ArrowLeft':
+        if (e.shiftKey) { e.preventDefault(); prevTrack(); }
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        setVolume(state.volume + 5);
+        break;
+      case 'ArrowDown':
+        e.preventDefault();
+        setVolume(state.volume - 5);
+        break;
+      case 'KeyM':
+        toggleMute();
+        break;
     }
   });
 
-  document.querySelector('.volume-wrap').addEventListener('wheel', e => {
+  document.querySelector('.volume-wrap').addEventListener('wheel', function(e) {
     e.preventDefault();
     setVolume(state.volume + (e.deltaY < 0 ? 5 : -5));
   }, { passive: false });
@@ -818,14 +865,14 @@ function escapeHtml(str) {
     .replace(/&/g,  '&amp;')
     .replace(/</g,  '&lt;')
     .replace(/>/g,  '&gt;')
-    .replace(/"/g,  '&quot;')
+    .replace(/\\"/g, '&quot;')
     .replace(/'/g,  '&#039;');
 }
 
 /* ===================================================================
    10. INIT
 =================================================================== */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
   renderFeaturedGrid();
   renderTrackGrid();
   renderRecentGrid();
@@ -836,14 +883,35 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('volumeFill').style.width = state.volume + '%';
   lucide.createIcons();
 
-  const hour = new Date().getHours();
-  const greeting = hour < 12 ? 'Good Morning' : hour < 17 ? 'Good Afternoon' : 'Good Evening';
-  const titleEl = document.querySelector('#view-home .section-title');
+  var hour = new Date().getHours();
+  var greeting = hour < 12 ? 'Good Morning' : hour < 17 ? 'Good Afternoon' : 'Good Evening';
+  var titleEl = document.querySelector('#view-home .section-title');
   if (titleEl) titleEl.textContent = greeting;
 
   console.log(
-    '%c\u266A SpopyFly Ready ',
+    '%c SpopyFly Ready ',
     'background:#1DB954;color:#000;font-weight:bold;padding:4px 8px;border-radius:4px;',
-    `\n${songs.length} tracks loaded.\nKeyboard: Space=play/pause, Shift+\u2192=next, Shift+\u2190=prev, \u2191\u2193=volume, M=mute`
+    '\\n' + songs.length + ' tracks loaded.\\nKeyboard shortcuts: Space=play/pause, Shift+arrow=next/prev, arrows=volume, M=mute'
   );
 });
+"""
+
+# small helper: write to temp then move
+def safe_write(filepath, content):
+    dirn = os.path.dirname(filepath)
+    # Write to a temp file in the same directory
+    tmp_path = filepath + '.tmp'
+    with open(tmp_path, 'w', encoding='utf-8', newline='\n') as f:
+        f.write(content)
+    # Now remove original and rename
+    try:
+        os.remove(filepath)
+    except:
+        pass
+    os.rename(tmp_path, filepath)
+    print('OK: ' + os.path.basename(filepath) + ' (' + str(len(content)) + ' bytes)')
+
+
+# Write script.js
+safe_write(os.path.join(BASE, 'script.js'), SCRIPT_JS)
+print('All done!')
