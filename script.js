@@ -1124,14 +1124,14 @@ function openVideoFull() {
   const song = songs[state.currentTrackIndex];
   const overlay = document.getElementById('videoOverlay');
   const playerWrapper = document.getElementById('yt-player-wrapper');
+  const playerDisplay = document.getElementById('videoPlayerDisplay');
   const videoContainer = document.getElementById('videoContainer');
   const placeholder = document.getElementById('videoPlaceholder');
 
   console.log('Opening video full screen...', {
     playerWrapper: playerWrapper ? 'found' : 'NOT FOUND',
-    videoContainer: videoContainer ? 'found' : 'NOT FOUND',
-    placeholder: placeholder ? 'found' : 'NOT FOUND',
-    ytPlayerReady: state.ytReady
+    playerDisplay: playerDisplay ? 'found' : 'NOT FOUND',
+    videoContainer: videoContainer ? 'found' : 'NOT FOUND'
   });
 
   // Update title info
@@ -1143,7 +1143,25 @@ function openVideoFull() {
   document.getElementById('videoMiniArtist').textContent = song.artist;
   document.getElementById('videoMiniCover').src = song.coverImageURL;
 
-  // Hide the placeholder AND the video container to reveal the player
+  // Move player wrapper into the video-overlay's player display container
+  if (playerDisplay && playerWrapper) {
+    playerDisplay.appendChild(playerWrapper);
+    console.log('Player wrapper moved to display container');
+  }
+
+  // Show player wrapper and hide placeholder
+  playerWrapper.style.width = '100%';
+  playerWrapper.style.height = '100%';
+  playerWrapper.style.position = 'relative';
+  playerWrapper.style.top = 'auto';
+  playerWrapper.style.left = 'auto';
+  playerWrapper.style.bottom = 'auto';
+  playerWrapper.style.right = 'auto';
+  playerWrapper.style.zIndex = 'auto';
+  playerWrapper.style.pointerEvents = 'auto';
+  playerWrapper.style.overflow = 'visible';
+
+  // Hide placeholder and video container
   if (placeholder) {
     placeholder.style.display = 'none';
     console.log('Placeholder hidden');
@@ -1153,21 +1171,14 @@ function openVideoFull() {
     console.log('Video container hidden');
   }
 
-  // Expand the unified YouTube player to fill the overlay
-  playerWrapper.style.width = '100vw';
-  playerWrapper.style.height = '100vh';
-  playerWrapper.style.position = 'fixed';
-  playerWrapper.style.top = '0';
-  playerWrapper.style.left = '0';
-  playerWrapper.style.zIndex = '2001';
-  playerWrapper.style.pointerEvents = 'auto';
-  playerWrapper.style.overflow = 'visible';
-
-  console.log('Player wrapper expanded', {
-    width: playerWrapper.style.width,
-    height: playerWrapper.style.height,
-    zIndex: playerWrapper.style.zIndex
-  });
+  // Style the player display container
+  playerDisplay.style.width = 'min(900px, 90vw)';
+  playerDisplay.style.aspectRatio = '16 / 9';
+  playerDisplay.style.borderRadius = '16px';
+  playerDisplay.style.overflow = 'hidden';
+  playerDisplay.style.boxShadow = '0 40px 100px rgba(0, 0, 0, 0.9), 0 0 60px rgba(29, 185, 84, 0.15)';
+  playerDisplay.style.border = '1px solid rgba(29, 185, 84, 0.1)';
+  playerDisplay.style.position = 'relative';
 
   // Open the overlay in full mode
   overlay.classList.remove('mini');
@@ -1229,10 +1240,19 @@ function closeVideoOverlay() {
   if (!overlay.classList.contains('open')) return;
 
   const playerWrapper = document.getElementById('yt-player-wrapper');
+  const playerDisplay = document.getElementById('videoPlayerDisplay');
   const videoContainer = document.getElementById('videoContainer');
   const placeholder = document.getElementById('videoPlaceholder');
 
-  // Hide the player and return it to 1x1 size for audio only
+  // Move player wrapper back outside the overlay
+  if (playerWrapper && playerDisplay.contains(playerWrapper)) {
+    // Get the body or document to put it back outside
+    const body = document.body;
+    body.insertBefore(playerWrapper, body.firstChild);
+    console.log('Player wrapper moved back outside overlay');
+  }
+
+  // Reset player wrapper to hidden state
   playerWrapper.style.width = '1px';
   playerWrapper.style.height = '1px';
   playerWrapper.style.position = 'fixed';
@@ -1240,7 +1260,19 @@ function closeVideoOverlay() {
   playerWrapper.style.right = '0';
   playerWrapper.style.zIndex = '-1';
   playerWrapper.style.pointerEvents = 'none';
+  playerWrapper.style.top = 'auto';
+  playerWrapper.style.left = 'auto';
 
+  // Reset player display container
+  playerDisplay.style.width = '';
+  playerDisplay.style.height = '';
+  playerDisplay.style.borderRadius = '';
+  playerDisplay.style.overflow = '';
+  playerDisplay.style.boxShadow = '';
+  playerDisplay.style.border = '';
+  playerDisplay.innerHTML = '';
+
+  // Close overlay
   overlay.classList.remove('open');
   overlay.classList.remove('mini');
   overlay.classList.remove('theater');

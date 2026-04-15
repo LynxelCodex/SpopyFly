@@ -1996,6 +1996,16 @@ input {
     border-color: rgba(255, 60, 60, 0.3) !important;
 }
 
+/* --- Video player display (holds the YouTube iframe) --- */
+.video-player-display {
+    width: min(900px, 90vw);
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(135deg, #0a0a0a 0%, #141414 100%);
+}
+
 /* --- Video container --- */
 .video-container {
     width: min(900px, 90vw);
