@@ -283,11 +283,11 @@ let ytPlayer = null;
 
 window.onYouTubeIframeAPIReady = function () {
   ytPlayer = new YT.Player('yt-player', {
-    height: '1',
-    width:  '1',
+    height: '100%',
+    width:  '100%',
     playerVars: {
-      autoplay: 0, controls: 0, disablekb: 1,
-      enablejsapi: 1, modestbranding: 1, rel: 0, showinfo: 0
+      autoplay: 0, controls: 1, disablekb: 0,
+      enablejsapi: 1, modestbranding: 1, rel: 0, showinfo: 0, fs: 1
     },
     events: {
       onReady:       onPlayerReady,
@@ -295,6 +295,13 @@ window.onYouTubeIframeAPIReady = function () {
       onError:       onPlayerError
     }
   });
+  
+  // Keep player hidden initially
+  const playerContainer = document.getElementById('yt-player-wrapper');
+  if (playerContainer) {
+    playerContainer.style.width = '1px';
+    playerContainer.style.height = '1px';
+  }
 };
 
 function onPlayerReady() {
@@ -1089,6 +1096,7 @@ function bindEvents() {
    Supports full mode (centered) and mini mode (PiP corner)
 =================================================================== */
 let videoIframe = null;
+let isVideoMode = false;
 
 function toggleVideoOverlay() {
   const overlay = document.getElementById('videoOverlay');
@@ -1114,8 +1122,7 @@ function toggleVideoOverlay() {
 function openVideoFull() {
   const song = songs[state.currentTrackIndex];
   const overlay = document.getElementById('videoOverlay');
-  const container = document.getElementById('videoContainer');
-  const placeholder = document.getElementById('videoPlaceholder');
+  const playerWrapper = document.getElementById('yt-player-wrapper');
 
   // Update title info
   document.getElementById('videoTitle').textContent = song.title;
@@ -1126,43 +1133,14 @@ function openVideoFull() {
   document.getElementById('videoMiniArtist').textContent = song.artist;
   document.getElementById('videoMiniCover').src = song.coverImageURL;
 
-  // Remove old iframe if any
-  if (videoIframe) {
-    videoIframe.remove();
-    videoIframe = null;
-  }
-
-  // Hide placeholder
-  if (placeholder) placeholder.style.display = 'none';
-
-  // Get current playback time from audio player for sync
-  let startTime = 0;
-  if (ytPlayer.getCurrentTime) {
-    try {
-      startTime = Math.floor(ytPlayer.getCurrentTime());
-    } catch (e) {
-      console.warn('Could not get current time:', e);
-      startTime = 0;
-    }
-  }
-
-  // Pause the hidden audio player to avoid double audio
-  // Only the video will play while the overlay is open
-  if (state.isPlaying) {
-    ytPlayer.pauseVideo();
-    console.log(`Video opened - synced to ${startTime}s`);
-  }
-
-  // Create a visible YouTube iframe for the video with time sync
-  videoIframe = document.createElement('iframe');
-  const embedUrl = `https://www.youtube.com/embed/${song.youtubeVideoID}?autoplay=1&rel=0&modestbranding=1&start=${startTime}`;
-  videoIframe.src = embedUrl;
-  videoIframe.allow = 'autoplay; encrypted-media';
-  videoIframe.allowFullscreen = true;
-  videoIframe.style.width = '100%';
-  videoIframe.style.height = '100%';
-  videoIframe.style.border = 'none';
-  container.appendChild(videoIframe);
+  // Expand the unified YouTube player to fill the overlay
+  playerWrapper.style.width = '100vw';
+  playerWrapper.style.height = '100vh';
+  playerWrapper.style.position = 'fixed';
+  playerWrapper.style.top = '0';
+  playerWrapper.style.left = '0';
+  playerWrapper.style.zIndex = '1999';
+  playerWrapper.style.pointerEvents = 'auto';
 
   // Open the overlay in full mode
   overlay.classList.remove('mini');
@@ -1173,6 +1151,8 @@ function openVideoFull() {
   document.getElementById('videoMinimize').style.display = '';
   document.getElementById('videoExpand').style.display = 'none';
 
+  isVideoMode = true;
+  console.log('Video mode: EXPANDED - Player is now visible in fullscreen');
   lucide.createIcons();
 }
 
@@ -1206,15 +1186,20 @@ function closeVideoOverlay() {
   const overlay = document.getElementById('videoOverlay');
   if (!overlay.classList.contains('open')) return;
 
+  const playerWrapper = document.getElementById('yt-player-wrapper');
+
+  // Hide the player and return it to 1x1 size for audio only
+  playerWrapper.style.width = '1px';
+  playerWrapper.style.height = '1px';
+  playerWrapper.style.position = 'fixed';
+  playerWrapper.style.bottom = '0';
+  playerWrapper.style.right = '0';
+  playerWrapper.style.zIndex = '-1';
+  playerWrapper.style.pointerEvents = 'none';
+
   overlay.classList.remove('open');
   overlay.classList.remove('mini');
   document.getElementById('btnVideo').classList.remove('active');
-
-  // Remove iframe to stop video playback
-  if (videoIframe) {
-    videoIframe.remove();
-    videoIframe = null;
-  }
 
   // Show placeholder again
   const placeholder = document.getElementById('videoPlaceholder');
@@ -1226,6 +1211,9 @@ function closeVideoOverlay() {
       ytPlayer.playVideo();
     }, 100);
   }
+
+  isVideoMode = false;
+  console.log('Video mode: OFF - Player is now hidden for audio only');
 }
 
 /* ===================================================================
