@@ -718,12 +718,16 @@ let viewHistory = ['home'];
 function showView(viewName) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.mobile-nav-btn').forEach(n => n.classList.remove('active'));
 
   const viewEl = document.getElementById(`view-${viewName}`);
   if (viewEl) viewEl.classList.add('active');
 
   const navBtn = document.querySelector(`.nav-item[data-view="${viewName}"]`);
   if (navBtn) navBtn.classList.add('active');
+
+  const mobileNavBtn = document.querySelector(`.mobile-nav-btn[data-view="${viewName}"]`);
+  if (mobileNavBtn) mobileNavBtn.classList.add('active');
 
   const searchWrap = document.getElementById('topbarSearchWrap');
   if (searchWrap) {
@@ -864,6 +868,10 @@ function getArtistColor(name) {
 =================================================================== */
 function bindEvents() {
   document.querySelectorAll('.nav-item').forEach(btn => {
+    btn.addEventListener('click', () => showView(btn.dataset.view));
+  });
+
+  document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
     btn.addEventListener('click', () => showView(btn.dataset.view));
   });
 
