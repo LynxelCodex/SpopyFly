@@ -317,18 +317,32 @@ function onPlayerStateChange(event) {
 }
 
 function onPlayerError(event) {
-  console.warn('YouTube player error:', event.data);
-  setTimeout(nextTrack, 1500);
+  console.error('YouTube player error code:', event.data);
+  // 2: Invalid video ID
+  // 5: HTML5 player error
+  // 100: Video not found
+  // 101/150: Video not allowed to be played embedded
+  if (event.data === 100 || event.data === 101 || event.data === 150) {
+    console.warn('Video cannot be played. Skipping to next track...');
+    setTimeout(nextTrack, 1500);
+  } else {
+    console.warn('YouTube player error:', event.data);
+    setTimeout(nextTrack, 1500);
+  }
 }
 
 /* ===================================================================
    4. PLAYBACK CONTROLS
 =================================================================== */
 function loadTrack(index, autoplay = true) {
-  if (!state.ytReady) { console.warn('YT player not ready yet'); return; }
+  if (!state.ytReady) {
+    console.warn('YT player not ready yet');
+    return;
+  }
   if (index < 0 || index >= songs.length) return;
 
   const song = songs[index];
+  console.log(`Loading track: ${song.title} by ${song.artist}`, `(autoplay: ${autoplay})`);
 
   document.querySelectorAll('.track-card.playing, .featured-card.playing').forEach(el => {
     el.classList.remove('playing');
@@ -362,6 +376,13 @@ function loadTrack(index, autoplay = true) {
   if (autoplay) {
     ytPlayer.loadVideoById(song.youtubeVideoID);
     state.isPlaying = true;
+    // Ensure playback starts after loading
+    setTimeout(() => {
+      if (state.isPlaying && ytPlayer.getPlayerState() !== YT.PlayerState.PLAYING) {
+        console.log('Auto-starting playback...');
+        ytPlayer.playVideo();
+      }
+    }, 500);
   } else {
     ytPlayer.cueVideoById(song.youtubeVideoID);
     state.isPlaying = false;
@@ -370,9 +391,23 @@ function loadTrack(index, autoplay = true) {
 }
 
 function playPause() {
-  if (!state.ytReady) return;
-  if (state.currentTrackIndex === -1) { loadTrack(0); return; }
-  if (state.isPlaying) { ytPlayer.pauseVideo(); } else { ytPlayer.playVideo(); }
+  if (!state.ytReady) {
+    console.warn('YouTube player not ready yet');
+    return;
+  }
+  if (state.currentTrackIndex === -1) {
+    loadTrack(0);
+    return;
+  }
+  try {
+    if (state.isPlaying) {
+      ytPlayer.pauseVideo();
+    } else {
+      ytPlayer.playVideo();
+    }
+  } catch (error) {
+    console.error('Error in playPause:', error);
+  }
 }
 
 function nextTrack() {
