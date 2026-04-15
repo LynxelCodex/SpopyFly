@@ -1270,6 +1270,7 @@ input {
         grid-column: 1;
         border-radius: 0;
         padding-top: 56px;
+        margin-top: 0;
     }
 
     .view {
@@ -1419,6 +1420,13 @@ input {
         padding: 0 12px 0 52px;
         height: 56px;
         z-index: 51;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: rgba(15, 10, 40, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border);
     }
 
     .topbar-btn {
@@ -1429,6 +1437,15 @@ input {
     .topbar-btn svg {
         width: 18px;
         height: 18px;
+    }
+
+    .topbar-profile {
+        margin-left: auto;
+    }
+
+    .profile-btn {
+        width: 40px;
+        height: 40px;
     }
 
     .topbar-search {
