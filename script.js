@@ -1134,6 +1134,10 @@ function openVideoFull() {
   document.getElementById('videoMiniArtist').textContent = song.artist;
   document.getElementById('videoMiniCover').src = song.coverImageURL;
 
+  // Hide the placeholder so iframe is visible
+  const placeholder = document.getElementById('videoPlaceholder');
+  if (placeholder) placeholder.style.display = 'none';
+
   // Expand the unified YouTube player to fill the overlay
   playerWrapper.style.width = '100vw';
   playerWrapper.style.height = '100vh';

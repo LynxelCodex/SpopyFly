@@ -82,10 +82,10 @@ input {
     height: 1px;
     bottom: 0;
     right: 0;
-    opacity: 0;
     pointer-events: none;
     overflow: hidden;
     z-index: -1;
+    transition: width 0.3s ease, height 0.3s ease, z-index 0.3s ease;
 }
 
 /* â”€â”€ APP SHELL LAYOUT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
