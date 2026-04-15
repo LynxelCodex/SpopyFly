@@ -1124,6 +1124,8 @@ function openVideoFull() {
   const song = songs[state.currentTrackIndex];
   const overlay = document.getElementById('videoOverlay');
   const playerWrapper = document.getElementById('yt-player-wrapper');
+  const videoContainer = document.getElementById('videoContainer');
+  const placeholder = document.getElementById('videoPlaceholder');
 
   // Update title info
   document.getElementById('videoTitle').textContent = song.title;
@@ -1134,18 +1136,20 @@ function openVideoFull() {
   document.getElementById('videoMiniArtist').textContent = song.artist;
   document.getElementById('videoMiniCover').src = song.coverImageURL;
 
-  // Hide the placeholder so iframe is visible
-  const placeholder = document.getElementById('videoPlaceholder');
-  if (placeholder) placeholder.style.display = 'none';
-
-  // Expand the unified YouTube player to fill the overlay
+  // Show player wrapper and hide placeholder
+  playerWrapper.style.opacity = '1';
   playerWrapper.style.width = '100vw';
   playerWrapper.style.height = '100vh';
   playerWrapper.style.position = 'fixed';
   playerWrapper.style.top = '0';
   playerWrapper.style.left = '0';
-  playerWrapper.style.zIndex = '1999';
+  playerWrapper.style.zIndex = '2500';
   playerWrapper.style.pointerEvents = 'auto';
+  playerWrapper.style.overflow = 'visible';
+
+  // Hide placeholder and video container
+  if (placeholder) placeholder.style.display = 'none';
+  if (videoContainer) videoContainer.style.display = 'none';
 
   // Open the overlay in full mode
   overlay.classList.remove('mini');
@@ -1207,8 +1211,11 @@ function closeVideoOverlay() {
   if (!overlay.classList.contains('open')) return;
 
   const playerWrapper = document.getElementById('yt-player-wrapper');
+  const videoContainer = document.getElementById('videoContainer');
+  const placeholder = document.getElementById('videoPlaceholder');
 
   // Hide the player and return it to 1x1 size for audio only
+  playerWrapper.style.opacity = '0';
   playerWrapper.style.width = '1px';
   playerWrapper.style.height = '1px';
   playerWrapper.style.position = 'fixed';
@@ -1222,8 +1229,8 @@ function closeVideoOverlay() {
   overlay.classList.remove('theater');
   document.getElementById('btnVideo').classList.remove('active');
 
-  // Show placeholder again
-  const placeholder = document.getElementById('videoPlaceholder');
+  // Show the video container and placeholder again
+  if (videoContainer) videoContainer.style.display = '';
   if (placeholder) placeholder.style.display = '';
 
   // Resume audio playback if it was playing before opening video
