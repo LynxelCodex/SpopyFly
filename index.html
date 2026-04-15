@@ -13,7 +13,7 @@
 </head>
 <body>
 
-  <!-- HIDDEN YOUTUBE IFRAME PLAYER -->
+  <!-- HIDDEN YOUTUBE IFRAME PLAYER (audio-only) -->
   <div id="yt-player-wrapper" aria-hidden="true">
     <div id="yt-player"></div>
   </div>
@@ -199,6 +199,10 @@
 
     <!-- Volume & Extra Controls -->
     <div class="player-extras">
+      <!-- NEW: Watch Video button -->
+      <button class="ctrl-btn secondary small video-btn" id="btnVideo" aria-label="Watch Video" title="Watch Video">
+        <i data-lucide="tv"></i>
+      </button>
       <button class="ctrl-btn secondary small" id="btnQueue" aria-label="Queue">
         <i data-lucide="list-music"></i>
       </button>
@@ -252,6 +256,26 @@
         <button class="ctrl-btn secondary" id="overlayNext" aria-label="Next">
           <i data-lucide="skip-forward"></i>
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIDEO OVERLAY (shows the actual YouTube music video) -->
+  <div class="video-overlay" id="videoOverlay">
+    <div class="video-overlay-header">
+      <div class="video-overlay-info">
+        <span class="video-overlay-title" id="videoTitle">Now Playing</span>
+        <span class="video-overlay-subtitle" id="videoSubtitle">Select a track to watch</span>
+      </div>
+      <button class="video-overlay-close" id="videoClose" aria-label="Close video">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+    <div class="video-container" id="videoContainer">
+      <!-- Visible YouTube iframe will be inserted here by JS -->
+      <div class="video-placeholder" id="videoPlaceholder">
+        <i data-lucide="tv" class="video-placeholder-icon"></i>
+        <p>Play a song first, then click Watch Video</p>
       </div>
     </div>
   </div>

@@ -1,10 +1,10 @@
-/* ═══════════════════════════════════════════════════════════
-   SPOTIFY CLONE — style.css
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   SPOTIFY CLONE â€” style.css
    Deep black / charcoal theme. Accent: #1DB954 (Spotify Green)
    Font: DM Sans (clean, modern, close to Spotify's Circular)
-═══════════════════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
-/* ── RESET & BASE ───────────────────────────────────────── */
+/* â”€â”€ RESET & BASE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 *,
 *::before,
 *::after {
@@ -53,7 +53,7 @@ input {
     font: inherit;
 }
 
-/* ── CSS VARIABLES ──────────────────────────────────────── */
+/* â”€â”€ CSS VARIABLES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 :root {
     --bg: #000000;
     --bg-sidebar: #000000;
@@ -75,7 +75,7 @@ input {
     --transition: 0.2s ease;
 }
 
-/* ── HIDDEN YOUTUBE PLAYER ─────────────────────────────── */
+/* â”€â”€ HIDDEN YOUTUBE PLAYER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 #yt-player-wrapper {
     position: fixed;
     width: 1px;
@@ -88,7 +88,7 @@ input {
     z-index: -1;
 }
 
-/* ── APP SHELL LAYOUT ───────────────────────────────────── */
+/* â”€â”€ APP SHELL LAYOUT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .app-shell {
     display: grid;
     grid-template-columns: var(--sidebar-w) 1fr;
@@ -97,9 +97,9 @@ input {
     overflow: hidden;
 }
 
-/* ═══════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    SIDEBAR
-═══════════════════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .sidebar {
     background: var(--bg-sidebar);
     grid-column: 1;
@@ -257,9 +257,9 @@ input {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 }
 
-/* ═══════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    MAIN CONTENT
-═══════════════════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .main-content {
     grid-column: 2;
     background: #121212;
@@ -280,7 +280,7 @@ input {
     border-radius: 3px;
 }
 
-/* ── TOPBAR ─────────────────────────────────────────────── */
+/* â”€â”€ TOPBAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .topbar {
     position: sticky;
     top: 0;
@@ -386,7 +386,7 @@ input {
     height: 18px;
 }
 
-/* ── VIEWS ──────────────────────────────────────────────── */
+/* â”€â”€ VIEWS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .view {
     display: none;
     padding: 24px;
@@ -428,7 +428,7 @@ input {
     color: var(--text-primary);
 }
 
-/* ── FEATURED QUICK-PLAY GRID ───────────────────────────── */
+/* â”€â”€ FEATURED QUICK-PLAY GRID â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .featured-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -509,7 +509,7 @@ input {
     color: #000;
 }
 
-/* ── TRACK CARDS GRID ───────────────────────────────────── */
+/* â”€â”€ TRACK CARDS GRID â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .track-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -685,7 +685,7 @@ input {
     gap: 6px;
 }
 
-/* ── SEARCH VIEW: CATEGORY GRID ─────────────────────────── */
+/* â”€â”€ SEARCH VIEW: CATEGORY GRID â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .category-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -719,7 +719,7 @@ input {
     opacity: 0.85;
 }
 
-/* ── LIBRARY VIEW ───────────────────────────────────────── */
+/* â”€â”€ LIBRARY VIEW â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .library-list {
     display: flex;
     flex-direction: column;
@@ -783,9 +783,9 @@ input {
     padding: 32px 0;
 }
 
-/* ═══════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    PLAYER BAR
-═══════════════════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .player-bar {
     position: fixed;
     bottom: 0;
@@ -1075,9 +1075,9 @@ input {
     height: 16px;
 }
 
-/* ═══════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    NOW PLAYING OVERLAY
-═══════════════════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .now-playing-overlay {
     position: fixed;
     inset: 0 0 var(--player-h) 0;
@@ -1139,9 +1139,9 @@ input {
     color: var(--text-secondary);
 }
 
-/* ═══════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    SCROLLBAR STYLE (GLOBAL)
-═══════════════════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -1160,9 +1160,9 @@ input {
     background: #636363;
 }
 
-/* ═══════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    RESPONSIVE / MOBILE
-═══════════════════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 @media (max-width: 768px) {
     :root {
         --sidebar-w: 0px;
@@ -1253,7 +1253,7 @@ input {
     }
 }
 
-/* ── UTILITY ────────────────────────────────────────────── */
+/* â”€â”€ UTILITY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .sr-only {
     position: absolute;
     width: 1px;
@@ -1280,4 +1280,151 @@ input {
 .featured-card,
 .library-item {
     animation: fadeUp 0.3s ease both;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   VIDEO OVERLAY (Watch Music Video)
+═══════════════════════════════════════════════════════════ */
+.video-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.35s ease, visibility 0.35s ease, transform 0.35s ease;
+}
+
+.video-overlay.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.video-overlay-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, transparent 100%);
+    z-index: 10;
+}
+
+.video-overlay-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.video-overlay-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.video-overlay-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+}
+
+.video-overlay-close {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: var(--text-primary);
+    cursor: pointer;
+    border: none;
+    transition: background var(--transition), transform var(--transition);
+}
+
+.video-overlay-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.video-overlay-close svg {
+    width: 20px;
+    height: 20px;
+}
+
+.video-container {
+    width: min(900px, 90vw);
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.8);
+    position: relative;
+    background: #0a0a0a;
+}
+
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+.video-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+}
+
+.video-placeholder-icon {
+    width: 56px;
+    height: 56px;
+    opacity: 0.3;
+}
+
+/* Watch Video button in player bar — green glow accent */
+.video-btn {
+    position: relative;
+}
+
+.video-btn.active {
+    color: var(--accent) !important;
+}
+
+.video-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+@media (max-width: 768px) {
+    .video-container {
+        width: 95vw;
+        border-radius: 8px;
+    }
+
+    .video-overlay-header {
+        padding: 12px 16px;
+    }
 }

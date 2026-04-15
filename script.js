@@ -711,7 +711,7 @@ function showView(viewName) {
   const navBtn = document.querySelector(`.nav-item[data-view="${viewName}"]`);
   if (navBtn) navBtn.classList.add('active');
 
-  // FIX: Search bar was always 'flex' — now properly hides on non-search views
+  // FIX: Search bar was always 'flex' â€” now properly hides on non-search views
   const searchWrap = document.getElementById('topbarSearchWrap');
   if (searchWrap) {
     searchWrap.style.display = viewName === 'search' ? 'flex' : 'none';
@@ -777,6 +777,10 @@ function bindEvents() {
   const overlaySeekBar = document.getElementById('overlaySeekBar');
   if (overlaySeekBar) overlaySeekBar.addEventListener('input', () => seekTo(parseFloat(overlaySeekBar.value)));
 
+  // Watch Video button
+  document.getElementById('btnVideo').addEventListener('click', toggleVideoOverlay);
+  document.getElementById('videoClose').addEventListener('click', closeVideoOverlay);
+
   const searchInput = document.getElementById('searchInput');
   searchInput.addEventListener('input', () => {
     showView('search');
@@ -801,6 +805,7 @@ function bindEvents() {
       case 'ArrowUp':    e.preventDefault(); setVolume(state.volume + 5); break;
       case 'ArrowDown':  e.preventDefault(); setVolume(state.volume - 5); break;
       case 'KeyM': toggleMute(); break;
+      case 'Escape': closeVideoOverlay(); break;
     }
   });
 
@@ -811,7 +816,81 @@ function bindEvents() {
 }
 
 /* ===================================================================
-   9. UTILITY
+   9. VIDEO OVERLAY (Watch Music Video)
+=================================================================== */
+let videoIframe = null;
+
+function toggleVideoOverlay() {
+  const overlay = document.getElementById('videoOverlay');
+  const isOpen = overlay.classList.contains('open');
+
+  if (isOpen) {
+    closeVideoOverlay();
+    return;
+  }
+
+  // Must have a track loaded
+  if (state.currentTrackIndex === -1) return;
+
+  const song = songs[state.currentTrackIndex];
+  const container = document.getElementById('videoContainer');
+  const placeholder = document.getElementById('videoPlaceholder');
+
+  // Update title info
+  document.getElementById('videoTitle').textContent = song.title;
+  document.getElementById('videoSubtitle').textContent = song.artist + ' — Music Video';
+
+  // Remove old iframe if any
+  if (videoIframe) {
+    videoIframe.remove();
+    videoIframe = null;
+  }
+
+  // Hide placeholder
+  if (placeholder) placeholder.style.display = 'none';
+
+  // Pause the hidden audio player to avoid double audio
+  if (state.isPlaying) {
+    ytPlayer.pauseVideo();
+  }
+
+  // Create a visible YouTube iframe for the video
+  videoIframe = document.createElement('iframe');
+  videoIframe.src = `https://www.youtube.com/embed/${song.youtubeVideoID}?autoplay=1&rel=0&modestbranding=1`;
+  videoIframe.allow = 'autoplay; encrypted-media';
+  videoIframe.allowFullscreen = true;
+  container.appendChild(videoIframe);
+
+  // Open the overlay
+  overlay.classList.add('open');
+  document.getElementById('btnVideo').classList.add('active');
+}
+
+function closeVideoOverlay() {
+  const overlay = document.getElementById('videoOverlay');
+  if (!overlay.classList.contains('open')) return;
+
+  overlay.classList.remove('open');
+  document.getElementById('btnVideo').classList.remove('active');
+
+  // Remove iframe to stop video playback
+  if (videoIframe) {
+    videoIframe.remove();
+    videoIframe = null;
+  }
+
+  // Show placeholder again
+  const placeholder = document.getElementById('videoPlaceholder');
+  if (placeholder) placeholder.style.display = '';
+
+  // Resume audio playback from the hidden player
+  if (state.currentTrackIndex !== -1) {
+    ytPlayer.playVideo();
+  }
+}
+
+/* ===================================================================
+   10. UTILITY
 =================================================================== */
 function escapeHtml(str) {
   return str
@@ -823,7 +902,7 @@ function escapeHtml(str) {
 }
 
 /* ===================================================================
-   10. INIT
+   11. INIT
 =================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
   renderFeaturedGrid();
@@ -847,3 +926,4 @@ document.addEventListener('DOMContentLoaded', () => {
     `\n${songs.length} tracks loaded.\nKeyboard: Space=play/pause, Shift+\u2192=next, Shift+\u2190=prev, \u2191\u2193=volume, M=mute`
   );
 });
+
