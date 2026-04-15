@@ -109,6 +109,14 @@
 
         <section class="content-section">
           <div class="section-header-row">
+            <h2 class="section-title">Artists</h2>
+            <button class="show-all-btn">Show all</button>
+          </div>
+          <div class="artist-grid" id="artistGrid"></div>
+        </section>
+
+        <section class="content-section">
+          <div class="section-header-row">
             <h2 class="section-title">All Tracks</h2>
             <button class="show-all-btn">Show all</button>
           </div>
@@ -140,6 +148,34 @@
         <section class="content-section">
           <h2 class="section-title">Your Library</h2>
           <div class="library-list" id="libraryList"></div>
+        </section>
+      </div>
+
+      <!-- VIEW: ARTIST DETAIL -->
+      <div class="view" id="view-artist">
+        <div class="artist-detail-hero" id="artistHero">
+          <div class="artist-hero-gradient"></div>
+          <button class="artist-back-btn" id="artistBackBtn" aria-label="Go back">
+            <i data-lucide="arrow-left"></i>
+          </button>
+          <div class="artist-hero-avatar" id="artistHeroAvatar"></div>
+          <div class="artist-hero-info">
+            <span class="artist-hero-verified"><i data-lucide="badge-check"></i> Verified Artist</span>
+            <h1 class="artist-hero-name" id="artistHeroName"></h1>
+            <span class="artist-hero-stats" id="artistHeroStats"></span>
+          </div>
+        </div>
+        <div class="artist-detail-actions">
+          <button class="artist-play-all-btn" id="artistPlayAllBtn" aria-label="Play all">
+            <i data-lucide="play"></i>
+          </button>
+          <button class="artist-shuffle-btn" id="artistShuffleBtn" aria-label="Shuffle play">
+            <i data-lucide="shuffle"></i>
+          </button>
+        </div>
+        <section class="content-section">
+          <h2 class="section-title">Popular</h2>
+          <div class="artist-track-list" id="artistTrackList"></div>
         </section>
       </div>
 

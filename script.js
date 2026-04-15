@@ -266,7 +266,8 @@ const state = {
   isLiked:           false,
   progressInterval:  null,
   ytReady:           false,
-  recentlyPlayed:    []
+  recentlyPlayed:    [],
+  currentArtistIndices: []
 };
 
 /* ===================================================================
@@ -495,7 +496,7 @@ function updatePlayPauseUI() {
     overlayPlayIcon.setAttribute('data-lucide', state.isPlaying ? 'pause' : 'play');
   }
 
-  // Update card states - FIX: target <i> not <svg> for icon swap
+  // Update card states
   document.querySelectorAll('.track-card').forEach(card => {
     const idx = parseInt(card.dataset.index, 10);
     if (idx === state.currentTrackIndex) {
@@ -508,6 +509,17 @@ function updatePlayPauseUI() {
       if (btn) btn.setAttribute('data-lucide', 'play');
     }
   });
+
+  // Update artist track rows
+  document.querySelectorAll('.artist-track-row').forEach(row => {
+    const idx = parseInt(row.dataset.index, 10);
+    if (idx === state.currentTrackIndex) {
+      row.classList.add('playing');
+    } else {
+      row.classList.remove('playing');
+    }
+  });
+
   lucide.createIcons();
 }
 
@@ -701,6 +713,8 @@ function renderSearchResults(query) {
 /* ===================================================================
    7. NAVIGATION / VIEWS
 =================================================================== */
+let viewHistory = ['home'];
+
 function showView(viewName) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -711,13 +725,138 @@ function showView(viewName) {
   const navBtn = document.querySelector(`.nav-item[data-view="${viewName}"]`);
   if (navBtn) navBtn.classList.add('active');
 
-  // FIX: Search bar was always 'flex' â€” now properly hides on non-search views
   const searchWrap = document.getElementById('topbarSearchWrap');
   if (searchWrap) {
     searchWrap.style.display = viewName === 'search' ? 'flex' : 'none';
   }
 
+  // Track navigation history for back button
+  if (viewHistory[viewHistory.length - 1] !== viewName) {
+    viewHistory.push(viewName);
+  }
+
   document.getElementById('mainContent').scrollTop = 0;
+}
+
+/* ===================================================================
+   7b. ARTIST FEATURE - Browse by artist, view track list, auto-play
+=================================================================== */
+function getUniqueArtists() {
+  const artistMap = {};
+  songs.forEach((song, i) => {
+    const name = song.artist;
+    if (!artistMap[name]) {
+      artistMap[name] = {
+        name: name,
+        coverImageURL: song.coverImageURL,
+        trackIndices: []
+      };
+    }
+    artistMap[name].trackIndices.push(i);
+  });
+  return Object.values(artistMap);
+}
+
+function renderArtistGrid() {
+  const grid = document.getElementById('artistGrid');
+  grid.innerHTML = '';
+  const artists = getUniqueArtists();
+
+  artists.forEach((artist, i) => {
+    const card = document.createElement('div');
+    card.className = 'artist-card';
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('aria-label', `View ${artist.name}`);
+
+    card.innerHTML = `
+      <div class="artist-card-avatar">
+        <img src="${artist.coverImageURL}" alt="${escapeHtml(artist.name)}"
+             onerror="this.src='https://via.placeholder.com/160x160/181818/535353?text=Artist'" />
+        <button class="artist-card-play" aria-label="Play ${escapeHtml(artist.name)}">
+          <i data-lucide="play"></i>
+        </button>
+      </div>
+      <p class="artist-card-name">${escapeHtml(artist.name)}</p>
+      <p class="artist-card-role">Artist</p>
+    `;
+
+    card.addEventListener('click', () => showArtist(artist.name));
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showArtist(artist.name); }
+    });
+    card.style.animationDelay = `${i * 0.05}s`;
+    grid.appendChild(card);
+  });
+  lucide.createIcons();
+}
+
+function showArtist(artistName) {
+  const artists = getUniqueArtists();
+  const artist = artists.find(a => a.name === artistName);
+  if (!artist) return;
+
+  // Populate hero section
+  const heroAvatar = document.getElementById('artistHeroAvatar');
+  heroAvatar.innerHTML = `<img src="${artist.coverImageURL}" alt="${escapeHtml(artist.name)}" />`;
+  document.getElementById('artistHeroName').textContent = artist.name;
+  document.getElementById('artistHeroStats').textContent = `${artist.trackIndices.length} track${artist.trackIndices.length > 1 ? 's' : ''}`;
+
+  // Set hero gradient color based on artist name
+  const hero = document.getElementById('artistHero');
+  hero.style.setProperty('--artist-color', getArtistColor(artist.name));
+
+  // Render track list
+  const listEl = document.getElementById('artistTrackList');
+  listEl.innerHTML = '';
+  artist.trackIndices.forEach((songIdx, listPos) => {
+    const song = songs[songIdx];
+    const row = document.createElement('div');
+    row.className = 'artist-track-row';
+    row.dataset.index = songIdx;
+    row.setAttribute('role', 'button');
+    row.setAttribute('tabindex', '0');
+
+    row.innerHTML = `
+      <span class="artist-track-num">${listPos + 1}</span>
+      <div class="artist-track-cover">
+        <img src="${song.coverImageURL}" alt="${escapeHtml(song.title)}" />
+      </div>
+      <div class="artist-track-meta">
+        <span class="artist-track-title">${escapeHtml(song.title)}</span>
+        <span class="artist-track-subtitle">${escapeHtml(song.artist)}</span>
+      </div>
+      <span class="artist-track-duration">&mdash;</span>
+    `;
+
+    row.addEventListener('click', () => loadTrack(songIdx));
+    row.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); loadTrack(songIdx); }
+    });
+    row.style.animationDelay = `${listPos * 0.04}s`;
+    listEl.appendChild(row);
+  });
+
+  // Store current artist for play-all / shuffle buttons
+  state.currentArtistIndices = artist.trackIndices;
+
+  // Navigate to artist view
+  showView('artist');
+
+  // Auto-play the first track
+  loadTrack(artist.trackIndices[0]);
+
+  lucide.createIcons();
+}
+
+function getArtistColor(name) {
+  // Generate a consistent HSL color from the artist name
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const hue = Math.abs(hash) % 360;
+  return `hsl(${hue}, 50%, 30%)`;
 }
 
 /* ===================================================================
@@ -798,6 +937,37 @@ function bindEvents() {
 
   document.getElementById('mainContent').addEventListener('click', () => {
     if (window.innerWidth <= 768) sidebar.classList.remove('open');
+  });
+
+  // Artist detail - back button
+  document.getElementById('artistBackBtn').addEventListener('click', () => {
+    viewHistory.pop(); // remove current 'artist' entry
+    const prev = viewHistory[viewHistory.length - 1] || 'home';
+    showView(prev);
+  });
+
+  // Artist detail - play all
+  document.getElementById('artistPlayAllBtn').addEventListener('click', () => {
+    if (state.currentArtistIndices.length > 0) {
+      loadTrack(state.currentArtistIndices[0]);
+    }
+  });
+
+  // Artist detail - shuffle play
+  document.getElementById('artistShuffleBtn').addEventListener('click', () => {
+    if (state.currentArtistIndices.length > 0) {
+      const rand = state.currentArtistIndices[Math.floor(Math.random() * state.currentArtistIndices.length)];
+      loadTrack(rand);
+    }
+  });
+
+  // Nav back button (topbar)
+  document.getElementById('navBack').addEventListener('click', () => {
+    if (viewHistory.length > 1) {
+      viewHistory.pop();
+      const prev = viewHistory[viewHistory.length - 1] || 'home';
+      showView(prev);
+    }
   });
 
   document.addEventListener('keydown', e => {
@@ -965,6 +1135,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderRecentGrid();
   renderLibraryList();
   renderCategories();
+  renderArtistGrid();
   bindEvents();
   showView('home');
   document.getElementById('volumeFill').style.width = state.volume + '%';
@@ -981,4 +1152,3 @@ document.addEventListener('DOMContentLoaded', () => {
     `\n${songs.length} tracks loaded.\nKeyboard: Space=play/pause, Shift+\u2192=next, Shift+\u2190=prev, \u2191\u2193=volume, M=mute`
   );
 });
-
