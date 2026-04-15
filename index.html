@@ -248,11 +248,11 @@ input{font:inherit;}
 .video-overlay.theater{align-items:flex-start;justify-content:flex-start;padding:16px;background:rgba(0,0,0,.98);}
 .video-overlay.theater .video-overlay-header{position:relative;top:0;left:0;right:0;padding:0 0 16px 0;background:none;}
 .video-overlay.theater .video-container{width:100%;height:calc(100vh - 200px);aspect-ratio:auto;max-width:100%;}
-.video-overlay.mini{inset:auto;bottom:calc(var(--player-h) + 16px);right:16px;width:400px;height:auto;border-radius:16px;background:linear-gradient(135deg,rgba(26,26,26,.95) 0%,rgba(40,40,40,.9) 100%);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,.8),0 0 0 1px rgba(29,185,84,.2),inset 0 1px 0 rgba(255,255,255,.1);transform:translateY(0) scale(1);overflow:hidden;animation:slideIn .4s cubic-bezier(.34,1.56,.64,1);}
+.video-overlay.mini{inset:auto;bottom:calc(var(--player-h) + 16px);right:16px;width:400px;height:auto;border-radius:16px;background:linear-gradient(135deg,rgba(26,26,26,.95) 0%,rgba(40,40,40,.9) 100%);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,.8),0 0 0 1px rgba(29,185,84,.2),inset 0 1px 0 rgba(255,255,255,.1);transform:translateY(0) scale(1);overflow:hidden;animation:slideIn .4s cubic-bezier(.34,1.56,.64,1);align-items:stretch;justify-content:flex-start;}
 .video-overlay.mini .video-overlay-header{position:relative;background:linear-gradient(180deg,rgba(0,0,0,.4) 0%,transparent 100%);padding:12px 16px;border-bottom:1px solid rgba(29,185,84,.15);}
 .video-overlay.mini .video-overlay-title{font-size:1.3rem;font-weight:600;}
 .video-overlay.mini .video-overlay-subtitle{font-size:1.1rem;font-weight:500;}
-.video-overlay.mini .video-container{width:100%;border-radius:0;box-shadow:none;aspect-ratio:16/9;}
+.video-overlay.mini .video-container{width:100%;height:auto;border-radius:0;box-shadow:none;aspect-ratio:16/9;flex-shrink:0;}
 .video-overlay.mini .video-mini-bar{display:flex;}
 .video-overlay-header{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:20px 28px;background:linear-gradient(180deg,rgba(0,0,0,.8) 0%,rgba(0,0,0,.4) 100%);z-index:10;gap:20px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.05);}
 .video-overlay-info{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1;}
