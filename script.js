@@ -418,19 +418,25 @@ function openVideoFull() {
   const song = songs[state.currentTrackIndex];
   const overlay = document.getElementById('videoOverlay');
   const playerWrapper = document.getElementById('yt-player-wrapper');
-  
+
   document.getElementById('videoTitle').textContent = song.title;
   document.getElementById('videoSubtitle').textContent = song.artist + ' — Music Video';
   document.getElementById('videoMiniTitle').textContent = song.title;
   document.getElementById('videoMiniArtist').textContent = song.artist;
   document.getElementById('videoMiniCover').src = song.coverImageURL;
 
-  playerWrapper.style.opacity = '1'; playerWrapper.style.width = '100vw'; playerWrapper.style.height = '100vh';
-  playerWrapper.style.position = 'fixed'; playerWrapper.style.top = '0'; playerWrapper.style.left = '0';
-  playerWrapper.style.zIndex = '2500'; playerWrapper.style.pointerEvents = 'auto';
+  playerWrapper.style.opacity = '1';
+  playerWrapper.style.width = 'calc(100vw - 32px)';
+  playerWrapper.style.height = 'calc(100vh - 32px)';
+  playerWrapper.style.position = 'fixed';
+  playerWrapper.style.top = '16px';
+  playerWrapper.style.left = '16px';
+  playerWrapper.style.zIndex = '2500';
+  playerWrapper.style.pointerEvents = 'auto';
 
   document.getElementById('videoPlaceholder').style.display = 'none';
-  overlay.classList.remove('mini'); overlay.classList.add('open');
+  overlay.classList.remove('mini');
+  overlay.classList.add('open');
   document.getElementById('btnVideo').classList.add('active');
   document.getElementById('videoMinimize').style.display = '';
   document.getElementById('videoExpand').style.display = 'none';
