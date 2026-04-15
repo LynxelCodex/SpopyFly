@@ -16,31 +16,26 @@ const songs = [
   { title: 'Montero', artist: 'Lil Nas X', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273be82673b5f79d9658ec0a9fd', youtubeVideoID: '6swmTBVI83k' },
   { title: 'Kiss Me More', artist: 'Doja Cat ft. SZA', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b2736cbf4b0e3f2c31d0b2b3f3b6', youtubeVideoID: '0EVVKs6DKA0' },
   { title: 'Bad Guy', artist: 'Billie Eilish', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273c6f7af36bc1f8b953d4dc274', youtubeVideoID: 'DyDfgMOUjCI' },
-  // --- Taylor Swift - 1989 ---
   { title: 'Blank Space', artist: 'Taylor Swift', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273b7ddfc14f36e4f3a7f805a5a', youtubeVideoID: 'e-ORhEE9VVg' },
   { title: 'Style', artist: 'Taylor Swift', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273b7ddfc14f36e4f3a7f805a5a', youtubeVideoID: '-CmadmM5cOk' },
   { title: 'Shake It Off', artist: 'Taylor Swift', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273b7ddfc14f36e4f3a7f805a5a', youtubeVideoID: 'nfWlot6h_JM' },
   { title: 'Bad Blood', artist: 'Taylor Swift', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273b7ddfc14f36e4f3a7f805a5a', youtubeVideoID: 'QqwH2i_845c' },
   { title: 'Wildest Dreams', artist: 'Taylor Swift', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273b7ddfc14f36e4f3a7f805a5a', youtubeVideoID: 'IdneKLooZaU' },
-  // --- Fleetwood Mac - Rumours ---
   { title: 'Dreams', artist: 'Fleetwood Mac', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273e9112fa1dbab69da97992983', youtubeVideoID: 'Y3ywicfc0Lc' },
   { title: 'Go Your Own Way', artist: 'Fleetwood Mac', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273e9112fa1dbab69da97992983', youtubeVideoID: '6ul-cZyuYq4' },
   { title: 'Don\'t Stop', artist: 'Fleetwood Mac', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273e9112fa1dbab69da97992983', youtubeVideoID: 'SyTvR1vWfB8' },
   { title: 'The Chain', artist: 'Fleetwood Mac', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273e9112fa1dbab69da97992983', youtubeVideoID: 'PCXpE2856yY' },
   { title: 'Never Going Back Again', artist: 'Fleetwood Mac', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273e9112fa1dbab69da97992983', youtubeVideoID: 'sKkWg2kRAl4' },
-  // --- Kendrick Lamar - DAMN. ---
   { title: 'BLOOD.', artist: 'Kendrick Lamar', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b2738b52c6b9bc4e43d873869699', youtubeVideoID: 'V-HkLDEY_Ew' },
   { title: 'DNA.', artist: 'Kendrick Lamar', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b2738b52c6b9bc4e43d873869699', youtubeVideoID: 'NLZRYQMLDW4' },
   { title: 'YAH.', artist: 'Kendrick Lamar', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b2738b52c6b9bc4e43d873869699', youtubeVideoID: 'vCNOeS3zXEQ' },
   { title: 'ELEMENT.', artist: 'Kendrick Lamar', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b2738b52c6b9bc4e43d873869699', youtubeVideoID: 'glaG64Ao7sM' },
   { title: 'LOYALTY.', artist: 'Kendrick Lamar', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b2738b52c6b9bc4e43d873869699', youtubeVideoID: 'Dlg-P005U-Y' },
-  // --- Daft Punk - Discovery ---
   { title: 'One More Time', artist: 'Daft Punk', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273e319bbafea153f387a32fd83', youtubeVideoID: 'FGBhQbmPwH8' },
   { title: 'Aerodynamic', artist: 'Daft Punk', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273e319bbafea153f387a32fd83', youtubeVideoID: 'L93-7vRfxNs' },
   { title: 'Digital Love', artist: 'Daft Punk', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273e319bbafea153f387a32fd83', youtubeVideoID: 'F_O1E42XlEI' },
   { title: 'Harder, Better, Faster, Stronger', artist: 'Daft Punk', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273e319bbafea153f387a32fd83', youtubeVideoID: 'gAjR4_CbPpQ' },
   { title: 'Something About Us', artist: 'Daft Punk', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273e319bbafea153f387a32fd83', youtubeVideoID: 'em0MknB6wVw' },
-  // --- Adele - 25 ---
   { title: 'Hello', artist: 'Adele', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b27318ff24f5a3f2db1901a14da9', youtubeVideoID: 'YQHsXMglC9A' },
   { title: 'Send My Love (To Your New Lover)', artist: 'Adele', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b27318ff24f5a3f2db1901a14da9', youtubeVideoID: 'fk4BbF7B29w' },
   { title: 'I Miss You', artist: 'Adele', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b27318ff24f5a3f2db1901a14da9', youtubeVideoID: 'dHn1_u9S3T0' },
@@ -99,6 +94,14 @@ function onPlayerStateChange(event) {
 
 function onPlayerError(event) {
   setTimeout(nextTrack, 1500);
+}
+
+function safeLucide() {
+  try {
+    lucide.createIcons();
+  } catch (e) {
+    console.error("Icon render error:", e);
+  }
 }
 
 /* ===================================================================
@@ -191,7 +194,7 @@ function updateVolumeIcon() {
   const icon = document.getElementById('volIcon');
   const vol = state.isMuted ? 0 : state.volume;
   icon.setAttribute('data-lucide', vol === 0 ? 'volume-x' : vol < 50 ? 'volume-1' : 'volume-2');
-  lucide.createIcons();
+  safeLucide();
 }
 
 /* ===================================================================
@@ -239,13 +242,13 @@ function formatTime(seconds) {
 function escapeHtml(str) { return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;'); }
 
 /* ===================================================================
-   UI HELPERS & RENDERING (Your Original Structure)
+   UI HELPERS & RENDERING
 =================================================================== */
 function updatePlayPauseUI() {
   document.getElementById('playIcon').setAttribute('data-lucide', state.isPlaying ? 'pause' : 'play');
   const overlayIcon = document.getElementById('overlayPlayIcon');
   if (overlayIcon) overlayIcon.setAttribute('data-lucide', state.isPlaying ? 'pause' : 'play');
-  lucide.createIcons();
+  safeLucide();
 }
 
 function createTrackCard(song, index) {
@@ -296,7 +299,7 @@ function renderRecentGrid() {
   grid.innerHTML = '';
   if (state.recentlyPlayed.length === 0) grid.innerHTML = '<p class="empty-state">Nothing played yet...</p>';
   else state.recentlyPlayed.forEach(i => grid.appendChild(createTrackCard(songs[i], i)));
-  lucide.createIcons();
+  safeLucide();
 }
 
 function renderLibraryList() {
@@ -375,7 +378,7 @@ function renderSearchResults(query) {
   const results = songs.filter(s => s.title.toLowerCase().includes(q) || s.artist.toLowerCase().includes(q));
   if (results.length === 0) { grid.innerHTML = '<p class="empty-state">No results found.</p>'; return; }
   results.forEach(song => grid.appendChild(createTrackCard(song, songs.indexOf(song))));
-  lucide.createIcons();
+  safeLucide();
 }
 
 let viewHistory = ['home'];
@@ -399,7 +402,7 @@ function showView(viewName) {
 }
 
 /* ===================================================================
-   VIDEO OVERLAY LOGIC (Your Original Theater/Mini Modes)
+   VIDEO OVERLAY LOGIC
 =================================================================== */
 let isVideoMode = false;
 function toggleVideoOverlay() {
@@ -432,7 +435,7 @@ function openVideoFull() {
   document.getElementById('videoMinimize').style.display = '';
   document.getElementById('videoExpand').style.display = 'none';
   isVideoMode = true;
-  lucide.createIcons();
+  safeLucide();
 }
 
 function minimizeVideo() {
@@ -480,12 +483,11 @@ function closeVideoOverlay() {
 document.addEventListener('DOMContentLoaded', () => {
   renderFeaturedGrid(); renderTrackGrid(); renderRecentGrid(); renderLibraryList();
   renderCategories(); renderArtistGrid();
-  lucide.createIcons();
+  safeLucide();
   
   const h = new Date().getHours();
   document.querySelector('#view-home .section-title').textContent = h < 12 ? 'Good Morning' : h < 17 ? 'Good Afternoon' : 'Good Evening';
 
-  // Navigation
   document.querySelectorAll('.nav-item, .mobile-nav-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       showView(btn.dataset.view);
@@ -493,30 +495,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
   
-  // Playback
   document.getElementById('btnPlayPause').onclick = playPause;
   document.getElementById('btnNext').onclick = nextTrack;
   document.getElementById('btnPrev').onclick = prevTrack;
   document.getElementById('btnShuffle').onclick = function() { state.isShuffle = !state.isShuffle; this.classList.toggle('active'); };
   document.getElementById('btnRepeat').onclick = function() { state.isRepeat = !state.isRepeat; this.classList.toggle('active'); };
   
-  // Volume & Seek
   document.getElementById('seekBar').oninput = (e) => seekTo(parseFloat(e.target.value));
   document.getElementById('volumeSlider').oninput = (e) => setVolume(parseInt(e.target.value, 10));
   document.getElementById('btnMute').onclick = toggleMute;
   
-  // Overlays
   document.getElementById('playerCover').closest('.player-cover-wrap').onclick = () => document.getElementById('nowPlayingOverlay').classList.add('open');
   document.getElementById('overlayClose').onclick = () => document.getElementById('nowPlayingOverlay').classList.remove('open');
   document.getElementById('btnFullscreen').onclick = () => document.getElementById('nowPlayingOverlay').classList.toggle('open');
   
-  // Overlay Controls
   document.getElementById('overlayPlayPause').onclick = playPause;
   document.getElementById('overlayNext').onclick = nextTrack;
   document.getElementById('overlayPrev').onclick = prevTrack;
   document.getElementById('overlaySeekBar').oninput = (e) => seekTo(parseFloat(e.target.value));
 
-  // Video Controls
   document.getElementById('btnVideo').onclick = toggleVideoOverlay;
   document.getElementById('videoClose').onclick = closeVideoOverlay;
   document.getElementById('videoTheater').onclick = toggleTheaterMode;
@@ -525,10 +522,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('videoMiniExpand').onclick = expandVideo;
   document.getElementById('videoMiniClose').onclick = closeVideoOverlay;
 
-  // Search
   document.getElementById('searchInput').oninput = (e) => { showView('search'); renderSearchResults(e.target.value); };
 
-  // App interactions
   document.getElementById('sidebarToggle').onclick = () => document.getElementById('sidebar').classList.toggle('open');
   document.getElementById('artistBackBtn').onclick = () => { viewHistory.pop(); showView(viewHistory[viewHistory.length - 1] || 'home'); };
   document.getElementById('artistPlayAllBtn').onclick = () => { if(state.currentArtistIndices.length) loadTrack(state.currentArtistIndices[0]); };
