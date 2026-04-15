@@ -425,15 +425,7 @@ function openVideoFull() {
   document.getElementById('videoMiniArtist').textContent = song.artist;
   document.getElementById('videoMiniCover').src = song.coverImageURL;
 
-  playerWrapper.style.opacity = '1';
-  playerWrapper.style.width = 'calc(100vw - 32px)';
-  playerWrapper.style.height = 'calc(100vh - 32px)';
-  playerWrapper.style.position = 'fixed';
-  playerWrapper.style.top = '16px';
-  playerWrapper.style.left = '16px';
-  playerWrapper.style.zIndex = '2500';
-  playerWrapper.style.pointerEvents = 'auto';
-
+  playerWrapper.style.display = 'block';
   document.getElementById('videoPlaceholder').style.display = 'none';
   overlay.classList.remove('mini');
   overlay.classList.add('open');
@@ -471,14 +463,12 @@ function toggleTheaterMode() {
 function closeVideoOverlay() {
   const overlay = document.getElementById('videoOverlay');
   const playerWrapper = document.getElementById('yt-player-wrapper');
-  playerWrapper.style.opacity = '0'; playerWrapper.style.width = '1px'; playerWrapper.style.height = '1px';
-  playerWrapper.style.position = 'fixed'; playerWrapper.style.bottom = '0'; playerWrapper.style.right = '0';
-  playerWrapper.style.zIndex = '-1'; playerWrapper.style.pointerEvents = 'none';
-  
+
+  playerWrapper.style.display = 'none';
   overlay.classList.remove('open', 'mini', 'theater');
   document.getElementById('btnVideo').classList.remove('active');
   document.getElementById('videoPlaceholder').style.display = '';
-  
+
   if (state.currentTrackIndex !== -1 && state.isPlaying) setTimeout(() => ytPlayer.playVideo(), 100);
   isVideoMode = false;
 }
