@@ -1,10 +1,10 @@
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   SPOTIFY CLONE â€” style.css
+/* ===================================================================
+   SPOTIFY CLONE — style.css
    Deep black / charcoal theme. Accent: #1DB954 (Spotify Green)
    Font: DM Sans (clean, modern, close to Spotify's Circular)
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+=================================================================== */
 
-/* â”€â”€ RESET & BASE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── RESET & BASE ──────────────────────────────────────────────── */
 *,
 *::before,
 *::after {
@@ -53,7 +53,7 @@ input {
     font: inherit;
 }
 
-/* â”€â”€ CSS VARIABLES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── CSS VARIABLES ──────────────────────────────────────────────── */
 :root {
     --bg: #000000;
     --bg-sidebar: #000000;
@@ -75,7 +75,7 @@ input {
     --transition: 0.2s ease;
 }
 
-/* â”€â”€ HIDDEN YOUTUBE PLAYER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── HIDDEN YOUTUBE PLAYER ──────────────────────────────────────── */
 #yt-player-wrapper {
     position: fixed;
     width: 1px;
@@ -88,7 +88,7 @@ input {
     transition: width 0.3s ease, height 0.3s ease, z-index 0.3s ease;
 }
 
-/* â”€â”€ APP SHELL LAYOUT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── APP SHELL LAYOUT ───────────────────────────────────────────── */
 .app-shell {
     display: grid;
     grid-template-columns: var(--sidebar-w) 1fr;
@@ -97,9 +97,9 @@ input {
     overflow: hidden;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ===================================================================
    SIDEBAR
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+=================================================================== */
 .sidebar {
     background: var(--bg-sidebar);
     grid-column: 1;
@@ -257,9 +257,9 @@ input {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ===================================================================
    MAIN CONTENT
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+=================================================================== */
 .main-content {
     grid-column: 2;
     background: #121212;
@@ -280,7 +280,7 @@ input {
     border-radius: 3px;
 }
 
-/* â”€â”€ TOPBAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── TOPBAR ──────────────────────────────────────────────────────── */
 .topbar {
     position: sticky;
     top: 0;
@@ -386,7 +386,7 @@ input {
     height: 18px;
 }
 
-/* â”€â”€ VIEWS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── VIEWS ───────────────────────────────────────────────────────── */
 .view {
     display: none;
     padding: 24px;
@@ -428,7 +428,7 @@ input {
     color: var(--text-primary);
 }
 
-/* â”€â”€ FEATURED QUICK-PLAY GRID â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── FEATURED QUICK-PLAY GRID ──────────────────────────────────── */
 .featured-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -509,7 +509,7 @@ input {
     color: #000;
 }
 
-/* â”€â”€ TRACK CARDS GRID â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── TRACK CARDS GRID ───────────────────────────────────────────── */
 .track-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -556,7 +556,7 @@ input {
     transform: scale(1.04);
 }
 
-/* Card play button (floating, bottom-right of cover) */
+/* Card play button */
 .card-play-btn {
     position: absolute;
     bottom: 8px;
@@ -634,34 +634,14 @@ input {
     animation: eqBounce 0.8s ease-in-out infinite alternate;
 }
 
-.eq-bar:nth-child(1) {
-    height: 6px;
-    animation-delay: 0s;
-}
-
-.eq-bar:nth-child(2) {
-    height: 10px;
-    animation-delay: 0.15s;
-}
-
-.eq-bar:nth-child(3) {
-    height: 14px;
-    animation-delay: 0.3s;
-}
-
-.eq-bar:nth-child(4) {
-    height: 8px;
-    animation-delay: 0.45s;
-}
+.eq-bar:nth-child(1) { height: 6px; animation-delay: 0s; }
+.eq-bar:nth-child(2) { height: 10px; animation-delay: 0.15s; }
+.eq-bar:nth-child(3) { height: 14px; animation-delay: 0.3s; }
+.eq-bar:nth-child(4) { height: 8px; animation-delay: 0.45s; }
 
 @keyframes eqBounce {
-    from {
-        transform: scaleY(0.4);
-    }
-
-    to {
-        transform: scaleY(1);
-    }
+    from { transform: scaleY(0.4); }
+    to { transform: scaleY(1); }
 }
 
 /* Card text */
@@ -685,7 +665,7 @@ input {
     gap: 6px;
 }
 
-/* â”€â”€ SEARCH VIEW: CATEGORY GRID â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── SEARCH VIEW: CATEGORY GRID ────────────────────────────────── */
 .category-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -719,7 +699,7 @@ input {
     opacity: 0.85;
 }
 
-/* â”€â”€ LIBRARY VIEW â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── LIBRARY VIEW ──────────────────────────────────────────────── */
 .library-list {
     display: flex;
     flex-direction: column;
@@ -783,9 +763,9 @@ input {
     padding: 32px 0;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ===================================================================
    PLAYER BAR
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+=================================================================== */
 .player-bar {
     position: fixed;
     bottom: 0;
@@ -1083,9 +1063,9 @@ input {
     padding: 0;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ===================================================================
    NOW PLAYING OVERLAY
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+=================================================================== */
 .now-playing-overlay {
     position: fixed;
     inset: 0 0 var(--player-h) 0;
@@ -1167,15 +1147,6 @@ input {
     width: 100%;
 }
 
-.time-label {
-    font-size: 1.2rem;
-    color: var(--text-secondary);
-    min-width: 36px;
-    text-align: center;
-    font-variant-numeric: tabular-nums;
-    font-weight: 500;
-}
-
 .overlay-progress-track {
     flex: 1;
     height: 5px;
@@ -1237,9 +1208,9 @@ input {
     transform: scale(1.05) !important;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ===================================================================
    SCROLLBAR STYLE (GLOBAL)
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+=================================================================== */
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -1258,17 +1229,15 @@ input {
     background: #636363;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ===================================================================
    RESPONSIVE / MOBILE
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+=================================================================== */
 /* Default state for mobile nav on desktop: hidden */
 .mobile-nav {
     display: none;
 }
 
-/* ===============================================================
-   MOBILE RESPONSIVE - Tablet (768px)
-=============================================================== */
+/* --- MOBILE RESPONSIVE - Tablet (768px) --- */
 @media (max-width: 768px) {
     :root {
         --sidebar-w: 0px;
@@ -1330,7 +1299,7 @@ input {
         margin-bottom: 10px;
     }
 
-    /* --- COMPACT MOBILE PLAYER BAR --- */
+    /* COMPACT MOBILE PLAYER BAR */
     .player-bar {
         display: flex;
         flex-direction: row;
@@ -1440,7 +1409,7 @@ input {
         display: none;
     }
 
-    /* --- TOPBAR MOBILE --- */
+    /* TOPBAR MOBILE */
     .topbar {
         padding: 0 12px 0 52px;
         height: 52px;
@@ -1472,7 +1441,7 @@ input {
         left: 10px;
     }
 
-    /* --- NOW PLAYING OVERLAY MOBILE --- */
+    /* NOW PLAYING OVERLAY MOBILE */
     .now-playing-overlay {
         inset: 0 0 calc(56px + var(--player-h) + env(safe-area-inset-bottom)) 0;
     }
@@ -1498,7 +1467,7 @@ input {
         gap: 16px;
     }
 
-    /* --- LIBRARY LIST MOBILE --- */
+    /* LIBRARY LIST MOBILE */
     .library-item {
         padding: 8px;
         gap: 10px;
@@ -1517,7 +1486,7 @@ input {
         font-size: 1.1rem;
     }
 
-    /* --- CATEGORY GRID MOBILE --- */
+    /* CATEGORY GRID MOBILE */
     .category-grid {
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
         gap: 12px;
@@ -1528,7 +1497,7 @@ input {
         font-size: 1.5rem;
     }
 
-    /* --- MOBILE BOTTOM NAV --- */
+    /* MOBILE BOTTOM NAV */
     .mobile-nav {
         display: flex;
         position: fixed;
@@ -1578,16 +1547,11 @@ input {
     /* Adjust player bar to sit above mobile nav */
     .player-bar {
         bottom: calc(56px + env(safe-area-inset-bottom));
-        z-index: 999; /* Ensure player bar sits below mobile nav */
+        z-index: 999;
         padding-bottom: env(safe-area-inset-bottom);
     }
 
-    /* Adjust now-playing overlay for mobile nav */
-    .now-playing-overlay {
-        inset: 0 0 calc(56px + var(--player-h) + env(safe-area-inset-bottom)) 0;
-    }
-
-    /* Sidebar backdrop - semi-transparent overlay when sidebar is open */
+    /* Sidebar backdrop */
     .app-shell.sidebar-open::before {
         content: '';
         position: fixed;
@@ -1600,21 +1564,17 @@ input {
         pointer-events: auto;
     }
 
-    /* Ensure main content has proper padding and click handling */
     .main-content {
         position: relative;
         z-index: 100;
     }
 
-    /* Video overlay mini mode - adjust for mobile nav */
     .video-overlay.mini {
         bottom: calc(56px + var(--player-h) + 16px + env(safe-area-inset-bottom));
     }
 }
 
-/* ===============================================================
-   MOBILE RESPONSIVE - Small Phone (480px)
-=============================================================== */
+/* --- MOBILE RESPONSIVE - Small Phone (480px) --- */
 @media (max-width: 480px) {
     :root {
         --player-h: 60px;
@@ -1713,90 +1673,12 @@ input {
     }
 }
 
-/* â”€â”€ UTILITY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-}
-
-/* Fade-in animation for cards */
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Video player animations */
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px) scale(0.95);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-@keyframes float {
-    0%, 100% {
-        opacity: 0.25;
-        transform: translateY(0px);
-    }
-
-    50% {
-        opacity: 0.35;
-        transform: translateY(-8px);
-    }
-}
-
-@keyframes pulse {
-    0%, 100% {
-        box-shadow: 0 0 12px var(--accent), 0 0 20px rgba(29, 185, 84, 0.4);
-    }
-
-    50% {
-        box-shadow: 0 0 20px var(--accent), 0 0 30px rgba(29, 185, 84, 0.6);
-    }
-}
-
-@keyframes glow {
-    0% {
-        box-shadow: 0 0 20px rgba(29, 185, 84, 0.3);
-    }
-
-    50% {
-        box-shadow: 0 0 40px rgba(29, 185, 84, 0.5);
-    }
-
-    100% {
-        box-shadow: 0 0 20px rgba(29, 185, 84, 0.3);
-    }
-}
-
-.track-card,
-.featured-card,
-.library-item {
-    animation: fadeUp 0.3s ease both;
-}
-
-/* ═══════════════════════════════════════════════════════════
+/* ===================================================================
    VIDEO OVERLAY (Watch Music Video)
-   Supports two modes: full (centered) and mini (PiP corner)
-═══════════════════════════════════════════════════════════ */
+   Supports full mode (centered) and mini mode (PiP corner)
+=================================================================== */
 
-/* --- FULL MODE (default when .open) --- */
+/* --- FULL MODE --- */
 .video-overlay {
     position: fixed;
     inset: 0;
@@ -1862,6 +1744,8 @@ input {
     transform: translateY(0) scale(1);
     overflow: hidden;
     animation: slideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    align-items: stretch;
+    justify-content: flex-start;
 }
 
 .video-overlay.mini .video-overlay-header {
@@ -1883,9 +1767,11 @@ input {
 
 .video-overlay.mini .video-container {
     width: 100%;
+    height: auto;
     border-radius: 0;
     box-shadow: none;
     aspect-ratio: 16 / 9;
+    flex-shrink: 0;
 }
 
 .video-overlay.mini .video-mini-bar {
@@ -1996,16 +1882,6 @@ input {
     border-color: rgba(255, 60, 60, 0.3) !important;
 }
 
-/* --- Video player display (holds the YouTube iframe) --- */
-.video-player-display {
-    width: min(900px, 90vw);
-    aspect-ratio: 16 / 9;
-    border-radius: 16px;
-    overflow: hidden;
-    position: relative;
-    background: linear-gradient(135deg, #0a0a0a 0%, #141414 100%);
-}
-
 /* --- Video container --- */
 .video-container {
     width: min(900px, 90vw);
@@ -2027,13 +1903,6 @@ input {
         0 50px 120px rgba(0, 0, 0, 0.95),
         0 0 80px rgba(29, 185, 84, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.15);
-}
-
-.video-container iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    display: block;
 }
 
 .video-placeholder {
@@ -2281,512 +2150,5 @@ input {
 
     .video-overlay.theater .video-container {
         height: calc(100vh - 160px);
-    }
-}
-
-/* ===============================================================
-   ARTIST CARDS GRID (Home page)
-=============================================================== */
-.artist-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 24px;
-}
-
-.artist-card {
-    background: var(--bg-card);
-    border-radius: var(--radius);
-    padding: 16px;
-    cursor: pointer;
-    transition: background var(--transition), transform 0.25s ease, box-shadow 0.25s ease;
-    text-align: center;
-    position: relative;
-    animation: fadeUp 0.3s ease both;
-}
-
-.artist-card:hover {
-    background: var(--bg-card-hover);
-    transform: translateY(-4px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-}
-
-.artist-card:hover .artist-card-play {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-}
-
-.artist-card-avatar {
-    width: 100%;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    overflow: hidden;
-    position: relative;
-    margin-bottom: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-}
-
-.artist-card-avatar img {
-    transition: transform 0.4s ease;
-}
-
-.artist-card:hover .artist-card-avatar img {
-    transform: scale(1.06);
-}
-
-.artist-card-play {
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
-    width: 48px;
-    height: 48px;
-    background: var(--accent);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transform: scale(0.8) translateY(8px);
-    transition: opacity 0.25s ease, transform 0.25s ease, background var(--transition), box-shadow var(--transition);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-    border: none;
-    cursor: pointer;
-}
-
-.artist-card-play:hover {
-    background: var(--accent-hover);
-    transform: scale(1.08) translateY(0) !important;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
-}
-
-.artist-card-play svg {
-    width: 20px;
-    height: 20px;
-    fill: #000;
-    color: #000;
-}
-
-.artist-card-name {
-    font-size: 1.4rem;
-    font-weight: 700;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-bottom: 4px;
-}
-
-.artist-card-role {
-    font-size: 1.2rem;
-    color: var(--text-secondary);
-}
-
-/* ===============================================================
-   ARTIST DETAIL VIEW
-=============================================================== */
-
-/* --- Hero Header --- */
-.artist-detail-hero {
-    --artist-color: hsl(200, 50%, 30%);
-    position: relative;
-    padding: 60px 32px 32px;
-    display: flex;
-    align-items: flex-end;
-    gap: 24px;
-    min-height: 280px;
-    overflow: hidden;
-}
-
-.artist-hero-gradient {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, var(--artist-color) 0%, #121212 100%);
-    z-index: 0;
-}
-
-.artist-back-btn {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    z-index: 5;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 50%;
-    color: var(--text-primary);
-    cursor: pointer;
-    border: none;
-    transition: background var(--transition), transform var(--transition);
-}
-
-.artist-back-btn:hover {
-    background: rgba(0, 0, 0, 0.7);
-    transform: scale(1.1);
-}
-
-.artist-back-btn svg {
-    width: 18px;
-    height: 18px;
-}
-
-.artist-hero-avatar {
-    width: 192px;
-    height: 192px;
-    border-radius: 50%;
-    overflow: hidden;
-    flex-shrink: 0;
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
-    z-index: 2;
-}
-
-.artist-hero-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.artist-hero-info {
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    min-width: 0;
-}
-
-.artist-hero-verified {
-    font-size: 1.2rem;
-    color: var(--accent);
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-weight: 600;
-}
-
-.artist-hero-verified svg {
-    width: 16px;
-    height: 16px;
-}
-
-.artist-hero-name {
-    font-size: 4.8rem;
-    font-weight: 900;
-    letter-spacing: -1.5px;
-    line-height: 1.1;
-    color: var(--text-primary);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.artist-hero-stats {
-    font-size: 1.4rem;
-    color: var(--text-secondary);
-    margin-top: 4px;
-}
-
-/* --- Actions bar --- */
-.artist-detail-actions {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 20px 32px;
-}
-
-.artist-play-all-btn {
-    width: 56px;
-    height: 56px;
-    background: var(--accent);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-    transition: transform 0.2s ease, background var(--transition), box-shadow 0.2s ease;
-}
-
-.artist-play-all-btn:hover {
-    transform: scale(1.06);
-    background: var(--accent-hover);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
-}
-
-.artist-play-all-btn svg {
-    width: 24px;
-    height: 24px;
-    fill: #000;
-    color: #000;
-}
-
-.artist-shuffle-btn {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    cursor: pointer;
-    background: transparent;
-    border-radius: 50%;
-    color: var(--text-secondary);
-    transition: color var(--transition), transform var(--transition);
-}
-
-.artist-shuffle-btn:hover {
-    color: var(--text-primary);
-    transform: scale(1.1);
-}
-
-.artist-shuffle-btn svg {
-    width: 22px;
-    height: 22px;
-}
-
-/* --- Track list --- */
-.artist-track-list {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.artist-track-row {
-    display: grid;
-    grid-template-columns: 36px 48px 1fr auto;
-    align-items: center;
-    gap: 14px;
-    padding: 8px 16px;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: background var(--transition);
-    animation: fadeUp 0.3s ease both;
-}
-
-.artist-track-row:hover {
-    background: var(--bg-card-hover);
-}
-
-.artist-track-row.playing {
-    background: rgba(29, 185, 84, 0.08);
-}
-
-.artist-track-row.playing .artist-track-title {
-    color: var(--accent);
-}
-
-.artist-track-row.playing .artist-track-num {
-    color: var(--accent);
-}
-
-.artist-track-num {
-    font-size: 1.4rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    text-align: center;
-    font-variant-numeric: tabular-nums;
-}
-
-.artist-track-cover {
-    width: 48px;
-    height: 48px;
-    border-radius: var(--radius-sm);
-    overflow: hidden;
-    flex-shrink: 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.artist-track-cover img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.artist-track-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    min-width: 0;
-}
-
-.artist-track-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transition: color var(--transition);
-}
-
-.artist-track-subtitle {
-    font-size: 1.2rem;
-    color: var(--text-secondary);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.artist-track-duration {
-    font-size: 1.3rem;
-    color: var(--text-secondary);
-    font-variant-numeric: tabular-nums;
-}
-
-/* --- Artist Responsive --- */
-@media (max-width: 768px) {
-    .artist-grid {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        gap: 12px;
-    }
-
-    .artist-card {
-        padding: 12px;
-    }
-
-    .artist-card-avatar {
-        margin-bottom: 10px;
-    }
-
-    .artist-card-play {
-        width: 40px;
-        height: 40px;
-    }
-
-    .artist-card-play svg {
-        width: 16px;
-        height: 16px;
-    }
-
-    .artist-card-name {
-        font-size: 1.3rem;
-    }
-
-    .artist-detail-hero {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 48px 16px 20px;
-        min-height: 200px;
-        gap: 16px;
-    }
-
-    .artist-hero-avatar {
-        width: 130px;
-        height: 130px;
-    }
-
-    .artist-hero-name {
-        font-size: 2.6rem;
-        letter-spacing: -1px;
-    }
-
-    .artist-hero-info {
-        align-items: center;
-    }
-
-    .artist-hero-verified {
-        font-size: 1.1rem;
-    }
-
-    .artist-hero-stats {
-        font-size: 1.2rem;
-    }
-
-    .artist-detail-actions {
-        justify-content: center;
-        padding: 14px 16px;
-    }
-
-    .artist-play-all-btn {
-        width: 48px;
-        height: 48px;
-    }
-
-    .artist-play-all-btn svg {
-        width: 20px;
-        height: 20px;
-    }
-
-    .artist-track-row {
-        grid-template-columns: 24px 40px 1fr auto;
-        gap: 10px;
-        padding: 8px 8px;
-    }
-
-    .artist-track-cover {
-        width: 40px;
-        height: 40px;
-    }
-
-    .artist-track-title {
-        font-size: 1.4rem;
-    }
-
-    .artist-track-subtitle {
-        font-size: 1.1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .artist-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-    }
-
-    .artist-card {
-        padding: 10px;
-    }
-
-    .artist-card-name {
-        font-size: 1.1rem;
-    }
-
-    .artist-card-role {
-        font-size: 1rem;
-    }
-
-    .artist-card-play {
-        width: 34px;
-        height: 34px;
-        bottom: 4px;
-        right: 4px;
-    }
-
-    .artist-detail-hero {
-        padding: 44px 12px 16px;
-        min-height: 180px;
-    }
-
-    .artist-hero-avatar {
-        width: 100px;
-        height: 100px;
-    }
-
-    .artist-hero-name {
-        font-size: 2rem;
-    }
-
-    .artist-track-row {
-        grid-template-columns: 20px 36px 1fr;
-        gap: 8px;
-        padding: 6px 6px;
-    }
-
-    .artist-track-cover {
-        width: 36px;
-        height: 36px;
-    }
-
-    .artist-track-duration {
-        display: none;
-    }
-
-    .artist-track-title {
-        font-size: 1.3rem;
-    }
-
-    .artist-track-num {
-        font-size: 1.2rem;
     }
 }
