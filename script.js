@@ -3,7 +3,7 @@
 =================================================================== */
 
 // YouTube API Key - Add your own key here from https://console.developers.google.com
-const YOUTUBE_API_KEY = 'AIzaSyCwciHt_mhdeGVeF4DYHKxYQAJ2a24uFTc';
+const YOUTUBE_API_KEY = 'AIzaSyCwciHt_mhdeGVeF4DYHKxYQAJ2a24uFTc'; // Replace with your YouTube API key
 
 // Load songs from localStorage, fallback to default
 let songs = JSON.parse(localStorage.getItem('spotifyCloneSongs')) || [
