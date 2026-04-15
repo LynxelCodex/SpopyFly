@@ -1,111 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SpopyFly - A premium Spotify-inspired music player with YouTube playback, search, library, and a beautiful dark UI." />
   <title>SpopyFly - Music Player</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 </head>
 <body>
 
-  <!-- Hidden YouTube Player (Audio Source) -->
+  <!-- HIDDEN YOUTUBE IFRAME PLAYER -->
   <div id="yt-player-wrapper">
     <div id="yt-player"></div>
   </div>
 
-  <div class="app-container">
-    <!-- Sidebar -->
+  <!-- APP SHELL -->
+  <div class="app-shell">
+
+    <!-- LEFT SIDEBAR -->
     <aside class="sidebar" id="sidebar">
-      <div class="logo">
-        <i data-lucide="play-circle" style="color:#1DB954"></i> <span>SpopyFly</span>
+      <div class="sidebar-logo">
+        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="12" fill="#1DB954"/>
+          <path d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6-.15-.5.15-1 .6-1.15 3.55-1.05 9.4-.85 13.1 1.35.45.25.6.85.35 1.3-.25.35-.85.5-1.3.25zm-.1 2.8c-.25.35-.75.5-1.1.25-2.7-1.65-6.8-2.15-9.95-1.15-.4.1-.85-.1-.95-.5-.1-.4.1-.85.5-.95 3.65-1.1 8.15-.55 11.25 1.35.3.15.45.65.25 1zm-1.25 2.75c-.2.3-.6.4-.9.2-2.35-1.45-5.35-1.75-8.85-.95-.35.1-.65-.15-.75-.45-.1-.35.15-.65.45-.75 3.85-.85 7.1-.5 9.7 1.1.35.15.4.55.35.85z" fill="#000"/>
+        </svg>
+        <span class="logo-text">SpopyFly</span>
       </div>
-      <nav class="nav-menu">
-        <button class="nav-link active" data-view="home"><i data-lucide="home"></i> Home</button>
-        <button class="nav-link" data-view="search"><i data-lucide="search"></i> Search</button>
-        <button class="nav-link" data-view="library"><i data-lucide="library"></i> Your Library</button>
+
+      <nav class="sidebar-nav" role="navigation">
+        <button class="nav-item active" data-view="home">
+          <i data-lucide="home" class="nav-icon"></i><span>Home</span>
+        </button>
+        <button class="nav-item" data-view="search">
+          <i data-lucide="search" class="nav-icon"></i><span>Search</span>
+        </button>
+        <button class="nav-item" data-view="library">
+          <i data-lucide="library" class="nav-icon"></i><span>Your Library</span>
+        </button>
       </nav>
+
       <div class="sidebar-divider"></div>
-      <div class="sidebar-extra">
-        <button class="nav-link"><i data-lucide="plus-square"></i> Create Playlist</button>
-        <button class="nav-link"><i data-lucide="heart"></i> Liked Songs</button>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-header">
+          <i data-lucide="plus-circle" class="section-icon"></i><span>Create Playlist</span>
+        </div>
+        <div class="sidebar-section-header liked">
+          <i data-lucide="heart" class="section-icon liked-icon"></i><span>Liked Songs</span>
+        </div>
+      </div>
+
+      <div class="sidebar-divider"></div>
+
+      <div class="sidebar-links">
+        <a href="#" class="sidebar-link">Cookies</a>
+        <a href="#" class="sidebar-link">Privacy Center</a>
+        <a href="#" class="sidebar-link">About</a>
       </div>
     </aside>
 
-    <!-- Main Content -->
-    <main class="main-content">
-      <header class="top-bar">
-        <button id="mobile-toggle" class="icon-btn"><i data-lucide="menu"></i></button>
-        <div class="search-container" id="searchBar" style="display:none;">
-          <i data-lucide="search"></i>
-          <input type="text" id="searchInput" placeholder="What do you want to listen to?">
-        </div>
-        <div class="user-profile"><i data-lucide="user"></i></div>
-      </header>
+    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+      <i data-lucide="menu"></i>
+    </button>
 
-      <!-- View: Home -->
-      <section id="view-home" class="view active">
-        <h1 id="greeting">Good Evening</h1>
-        <div class="featured-grid" id="featuredGrid"></div>
-        <h2 class="section-title">Artists</h2>
-        <div class="artist-grid" id="artistGrid"></div>
-        <h2 class="section-title">All Songs</h2>
-        <div class="track-grid" id="trackGrid"></div>
-      </section>
-
-      <!-- View: Search -->
-      <section id="view-search" class="view">
-        <h1 class="section-title">Search Results</h1>
-        <div class="track-grid" id="searchGrid">
-          <p class="empty-state">Start typing to find music...</p>
+    <!-- MAIN CONTENT -->
+    <main class="main-content" id="mainContent">
+      <div class="topbar">
+        <div class="topbar-nav">
+          <button class="topbar-btn" id="navBack"><i data-lucide="chevron-left"></i></button>
+          <button class="topbar-btn" id="navFwd"><i data-lucide="chevron-right"></i></button>
         </div>
-      </section>
-
-      <!-- View: Artist Detail -->
-      <section id="view-artist" class="view">
-        <button id="backBtn" class="back-btn"><i data-lucide="arrow-left"></i> Back</button>
-        <div class="artist-header">
-          <h1 id="artistNameDisplay">Artist Name</h1>
+        <div class="topbar-search-wrap" id="topbarSearchWrap" style="display:none;">
+          <i data-lucide="search" class="topbar-search-icon"></i>
+          <input type="text" id="searchInput" class="topbar-search" placeholder="What do you want to listen to?" autocomplete="off" />
         </div>
-        <div class="track-grid" id="artistTrackList"></div>
-      </section>
+        <div class="topbar-profile">
+          <button class="profile-btn"><i data-lucide="user-circle"></i></button>
+        </div>
+      </div>
+
+      <!-- VIEW: HOME -->
+      <div class="view active" id="view-home">
+        <section class="content-section">
+          <h2 class="section-title">Good Evening</h2>
+          <div class="featured-grid" id="featuredGrid"></div>
+        </section>
+
+        <section class="content-section">
+          <div class="section-header-row">
+            <h2 class="section-title">Artists</h2>
+            <button class="show-all-btn">Show all</button>
+          </div>
+          <div class="artist-grid" id="artistGrid"></div>
+        </section>
+
+        <section class="content-section">
+          <div class="section-header-row">
+            <h2 class="section-title">All Tracks</h2>
+            <button class="show-all-btn">Show all</button>
+          </div>
+          <div class="track-grid" id="trackGrid"></div>
+        </section>
+
+        <section class="content-section">
+          <h2 class="section-title">Recently Played</h2>
+          <div class="track-grid" id="recentGrid"></div>
+        </section>
+      </div>
+
+      <!-- VIEW: SEARCH -->
+      <div class="view" id="view-search">
+        <section class="content-section">
+          <h2 class="section-title">Search Results</h2>
+          <div class="track-grid" id="searchGrid">
+            <p class="empty-state">Start typing to search tracks...</p>
+          </div>
+        </section>
+        <section class="content-section">
+          <h2 class="section-title">Browse Categories</h2>
+          <div class="category-grid" id="categoryGrid"></div>
+        </section>
+      </div>
+
+      <!-- VIEW: LIBRARY -->
+      <div class="view" id="view-library">
+        <section class="content-section">
+          <h2 class="section-title">Your Library</h2>
+          <div class="library-list" id="libraryList"></div>
+        </section>
+      </div>
+
+      <!-- VIEW: ARTIST DETAIL -->
+      <div class="view" id="view-artist">
+        <div class="artist-detail-hero" id="artistHero">
+          <div class="artist-hero-gradient"></div>
+          <button class="artist-back-btn" id="artistBackBtn" aria-label="Go back">
+            <i data-lucide="arrow-left"></i>
+          </button>
+          <div class="artist-hero-avatar" id="artistHeroAvatar"></div>
+          <div class="artist-hero-info">
+            <span class="artist-hero-verified"><i data-lucide="badge-check"></i> Verified Artist</span>
+            <h1 class="artist-hero-name" id="artistHeroName"></h1>
+            <span class="artist-hero-stats" id="artistHeroStats"></span>
+          </div>
+        </div>
+        <div class="artist-detail-actions">
+          <button class="artist-play-all-btn" id="artistPlayAllBtn" aria-label="Play all">
+            <i data-lucide="play"></i>
+          </button>
+          <button class="artist-shuffle-btn" id="artistShuffleBtn" aria-label="Shuffle play">
+            <i data-lucide="shuffle"></i>
+          </button>
+        </div>
+        <section class="content-section">
+          <h2 class="section-title">Popular</h2>
+          <div class="artist-track-list" id="artistTrackList"></div>
+        </section>
+      </div>
     </main>
   </div>
 
-  <!-- Player Bar -->
-  <footer class="player-bar">
-    <div class="current-track">
-      <img id="playerCover" src="https://via.placeholder.com/56" alt="Cover">
-      <div class="track-info">
-        <div id="playerTitle">Select a track</div>
-        <div id="playerArtist">-</div>
+  <!-- FIXED BOTTOM PLAYER BAR -->
+  <footer class="player-bar" id="playerBar">
+    <div class="player-track-info">
+      <div class="player-cover-wrap">
+        <img id="playerCover" src="https://via.placeholder.com/56x56/181818/535353?text=No+Art" alt="Album Art" />
+        <div class="player-cover-overlay"><i data-lucide="music" class="cover-music-icon"></i></div>
       </div>
-      <i data-lucide="heart" class="heart-icon"></i>
+      <div class="player-meta">
+        <span class="player-title" id="playerTitle">Select a track</span>
+        <span class="player-artist" id="playerArtist">&mdash;</span>
+      </div>
+      <button class="player-like-btn" id="playerLike"><i data-lucide="heart"></i></button>
     </div>
 
-    <div class="controls-container">
-      <div class="playback-btns">
-        <button class="icon-btn" id="btnShuffle"><i data-lucide="shuffle"></i></button>
-        <button class="icon-btn" id="btnPrev"><i data-lucide="skip-back"></i></button>
-        <button class="play-btn" id="btnPlayPause"><i data-lucide="play" id="playIcon"></i></button>
-        <button class="icon-btn" id="btnNext"><i data-lucide="skip-forward"></i></button>
-        <button class="icon-btn" id="btnRepeat"><i data-lucide="repeat"></i></button>
+    <div class="player-controls">
+      <div class="control-buttons">
+        <button class="ctrl-btn secondary" id="btnShuffle"><i data-lucide="shuffle"></i></button>
+        <button class="ctrl-btn secondary" id="btnPrev"><i data-lucide="skip-back"></i></button>
+        <button class="ctrl-btn primary" id="btnPlayPause"><i data-lucide="play" id="playIcon"></i></button>
+        <button class="ctrl-btn secondary" id="btnNext"><i data-lucide="skip-forward"></i></button>
+        <button class="ctrl-btn secondary" id="btnRepeat"><i data-lucide="repeat"></i></button>
       </div>
-      <div class="progress-bar-wrap">
-        <span id="timeCurrent">0:00</span>
-        <div class="progress-bg"><div id="progressFill"></div></div>
-        <span id="timeTotal">0:00</span>
+      <div class="progress-wrap">
+        <span class="time-label" id="currentTime">0:00</span>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+          <input type="range" id="seekBar" class="seek-bar" min="0" max="100" value="0" step="0.1" />
+        </div>
+        <span class="time-label" id="totalTime">0:00</span>
       </div>
     </div>
 
-    <div class="extra-controls">
-      <button class="icon-btn" id="btnVideo" title="Watch Music Video"><i data-lucide="tv"></i></button>
-      <i data-lucide="volume-2"></i>
-      <input type="range" id="volumeSlider" min="0" max="100" value="70">
+    <div class="player-extras">
+      <button class="ctrl-btn secondary small video-btn" id="btnVideo" aria-label="Watch Video" title="Watch Video">
+        <i data-lucide="tv"></i>
+      </button>
+      <button class="ctrl-btn secondary small" id="btnQueue"><i data-lucide="list-music"></i></button>
+      <button class="ctrl-btn secondary small" id="btnDevice"><i data-lucide="monitor-speaker"></i></button>
+      <div class="volume-wrap">
+        <button class="ctrl-btn secondary small" id="btnMute"><i data-lucide="volume-2" id="volIcon"></i></button>
+        <div class="volume-track">
+          <div class="volume-fill" id="volumeFill"></div>
+          <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="70" />
+        </div>
+      </div>
+      <button class="ctrl-btn secondary small" id="btnFullscreen"><i data-lucide="maximize-2"></i></button>
     </div>
   </footer>
 
-  <script src="script.js"></script>
-</body>
-</html>
+  <!-- MOBILE BOTTOM NAV -->
+  <nav class="mobile-nav" id="mobileNav">
+    <button class="mobile-nav-btn active" data-view="home"><i data-lucide="home"></i><span>Home</span></button>
+    <button class="mobile-nav-btn" data-view="search"><i data-lucide="search"></i><span>Search</span></button>
+    <button class="mobile-nav-btn" data-view="library"><i data-lucide="library"></i><span>Library</span></button>
+  </nav>
+
+  <!-- NOW PLAYING OVERLAY -->
+  <div class="now-playing-overlay" id="nowPlayingOverlay">
+    <button class="overlay-close" id="overlayClose"><i data-lucide="chevron-down"></i></button>
+    <div class="overlay-art"><img id="overlayArt" src="" alt="Album Art Large" /></div>
+    <div class="overlay-info">
+      <span class="overlay-title" id="overlayTitle">&mdash;</span>
+      <span class="overlay-artist" id="overlayArtist">&mdash;</span>
+    </div>
+    <div class="overlay-controls">
+      <div class="overlay-progress-wrap">
+        <span class="time-label" id="overlayCurrentTime">0:00</span>
+        <div class="progress-track overlay-progress-track">
+          <div class="progress-fill" id="overlayProgressFill"></div>
+          <input type="range" id="overlaySeekBar" class="seek-bar" min="0" max="100" value="0" step="0.1" />
+        </div>
+        <span class="time-label" id="overlayTotalTime">0:00</span>
+      </div>
+      <div class="overlay-buttons">
+        <button class="ctrl-btn secondary" id="overlayPrev"><i data-lucide="skip-back"></i></button>
+        <button class="ctrl-btn primary overlay-play-btn" id="overlayPlayPause"><i data-lucide="play" id="overlayPlayIcon"></i></button>
+        <button class="ctrl-btn secondary" id="overlayNext"><i data-lucide="skip-forward"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIDEO OVERLAY (The Theater/Mini Player) -->
+  <div class="video-overlay" id="videoOverlay">
+    <div class="video-overlay-header">
+      <div class="video-overlay-info">
+        <span class="video-overlay-title" id="videoTitle">Now Playing</span>
+        <span class="video-overlay-subtitle" id="videoSubtitle">Select a track to watch</span>
+      </div>
+      <div class="video-header-actions">
+        <button class="video-action-btn" id="videoTheater" title="Theater Mode"><i data-lucide="maximize"></i></button>
+        <button class="video-action-btn" id="videoMinimize" title="Mini Player"><i data-lucide="picture-in-picture-2"></i></button>
+        <button class="video-action-btn" id="videoExpand" style="display:none;"><i data-lucide="minimize-2"></i></button>
+        <button class="video-action-btn video-close-btn" id="videoClose" title="Close"><i data-lucide="x"></i></button>
+      </div>
+    </div>
+
+    <div class="video-container" id="videoContainer">
+      <div class="video-
