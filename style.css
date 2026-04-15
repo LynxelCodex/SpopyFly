@@ -1152,32 +1152,89 @@ input {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
-    width: 90%;
-    max-width: 500px;
+    justify-content: center;
+    gap: 24px;
+    width: 85%;
+    max-width: 520px;
+    padding: 0 16px;
 }
 
 .overlay-progress-wrap {
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
+    gap: 12px;
     width: 100%;
+}
+
+.time-label {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    min-width: 36px;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
 }
 
 .overlay-progress-track {
     flex: 1;
-    height: 4px;
+    height: 5px;
     background: #535353;
-    border-radius: 2px;
+    border-radius: 3px;
     position: relative;
     cursor: pointer;
+    min-width: 100px;
+    transition: height 0.2s ease;
+}
+
+.overlay-progress-track:hover {
+    height: 7px;
+}
+
+#overlayProgressFill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: var(--accent);
+    border-radius: 3px;
+    pointer-events: none;
+    width: 0%;
+    transition: width 0.1s linear;
 }
 
 .overlay-buttons {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 20px;
+}
+
+.overlay-play-btn {
+    width: 56px !important;
+    height: 56px !important;
+    background: var(--accent) !important;
+    color: #000 !important;
+    font-size: 1.6rem !important;
+}
+
+.overlay-play-btn:hover {
+    background: var(--accent-hover) !important;
+    transform: scale(1.08) !important;
+}
+
+#overlayPrev,
+#overlayNext {
+    width: 44px !important;
+    height: 44px !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    transition: all 0.2s ease !important;
+}
+
+#overlayPrev:hover,
+#overlayNext:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    transform: scale(1.05) !important;
 }
 
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -1433,8 +1490,12 @@ input {
     }
 
     .overlay-controls {
-        width: 90%;
-        max-width: 400px;
+        gap: 20px;
+        width: 85%;
+    }
+
+    .overlay-buttons {
+        gap: 16px;
     }
 
     /* --- LIBRARY LIST MOBILE --- */
