@@ -935,7 +935,23 @@ function bindEvents() {
   seekBar.addEventListener('input', () => seekTo(parseFloat(seekBar.value)));
 
   const volSlider = document.getElementById('volumeSlider');
-  volSlider.addEventListener('input', () => setVolume(parseInt(volSlider.value, 10)));
+  const volumeTrack = document.querySelector('.volume-track');
+  
+  // Update volume fill when slider is moved
+  volSlider.addEventListener('input', (e) => {
+    const value = parseInt(e.target.value, 10);
+    setVolume(value);
+    // Immediate visual feedback by updating fill before setVolume completes
+    document.getElementById('volumeFill').style.width = value + '%';
+  });
+  
+  // Optional: Update fill on wheel scroll over volume track
+  if (volumeTrack) {
+    volumeTrack.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      setVolume(state.volume + (e.deltaY < 0 ? 5 : -5));
+    }, { passive: false });
+  }
 
   document.getElementById('btnMute').addEventListener('click', toggleMute);
 

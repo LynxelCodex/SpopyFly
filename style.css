@@ -1044,6 +1044,9 @@ input {
     position: relative;
     cursor: pointer;
     transition: height var(--transition);
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 .volume-track:hover {
@@ -1057,22 +1060,27 @@ input {
 .volume-fill {
     position: absolute;
     left: 0;
-    top: 0;
-    bottom: 0;
+    top: 50%;
+    transform: translateY(-50%);
     background: var(--text-primary);
     border-radius: 2px;
     pointer-events: none;
-    transition: background var(--transition);
+    transition: background var(--transition), width 0.1s linear;
     width: 70%;
+    height: 100%;
 }
 
 .volume-slider {
     position: absolute;
-    inset: -6px 0;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
     width: 100%;
     opacity: 0;
     cursor: pointer;
     height: 16px;
+    margin: 0;
+    padding: 0;
 }
 
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -1137,6 +1145,39 @@ input {
     display: block;
     font-size: 1.6rem;
     color: var(--text-secondary);
+}
+
+/* Now Playing Overlay Controls */
+.overlay-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 90%;
+    max-width: 500px;
+}
+
+.overlay-progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.overlay-progress-track {
+    flex: 1;
+    height: 4px;
+    background: #535353;
+    border-radius: 2px;
+    position: relative;
+    cursor: pointer;
+}
+
+.overlay-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
 }
 
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -1723,6 +1764,7 @@ input {
     padding: 16px 24px;
     background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, transparent 100%);
     z-index: 10;
+    gap: 16px;
 }
 
 .video-overlay-info {
@@ -1754,13 +1796,15 @@ input {
 .video-header-actions {
     display: flex;
     align-items: center;
-    gap: 6px;
+    justify-content: flex-end;
+    gap: 8px;
     flex-shrink: 0;
+    margin-left: auto;
 }
 
 .video-action-btn {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1770,6 +1814,7 @@ input {
     cursor: pointer;
     border: none;
     transition: background var(--transition), transform var(--transition);
+    flex-shrink: 0;
 }
 
 .video-action-btn:hover {
@@ -1938,6 +1983,22 @@ input {
 
     .video-overlay-header {
         padding: 12px 16px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .video-overlay-info {
+        flex: 1;
+        min-width: 120px;
+    }
+
+    .video-header-actions {
+        gap: 6px;
+    }
+
+    .video-action-btn {
+        width: 36px;
+        height: 36px;
     }
 
     .video-overlay.mini {
