@@ -872,7 +872,14 @@ function bindEvents() {
   });
 
   document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
-    btn.addEventListener('click', () => showView(btn.dataset.view));
+    btn.addEventListener('click', () => {
+      showView(btn.dataset.view);
+      // Close sidebar when mobile nav is clicked
+      const sidebar = document.getElementById('sidebar');
+      const appShell = document.querySelector('.app-shell');
+      sidebar.classList.remove('open');
+      appShell.classList.remove('sidebar-open');
+    });
   });
 
   document.getElementById('btnPlayPause').addEventListener('click', playPause);
@@ -941,10 +948,33 @@ function bindEvents() {
 
   const toggle  = document.getElementById('sidebarToggle');
   const sidebar = document.getElementById('sidebar');
-  toggle.addEventListener('click', () => sidebar.classList.toggle('open'));
+  const appShell = document.querySelector('.app-shell');
+  
+  toggle.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    appShell.classList.toggle('sidebar-open');
+  });
 
+  // Close sidebar when main content is clicked on mobile
   document.getElementById('mainContent').addEventListener('click', () => {
-    if (window.innerWidth <= 768) sidebar.classList.remove('open');
+    if (window.innerWidth <= 768) {
+      sidebar.classList.remove('open');
+      appShell.classList.remove('sidebar-open');
+    }
+  });
+
+  // Close sidebar when sidebar backdrop is clicked
+  document.addEventListener('click', (e) => {
+    if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
+      // Check if click is on the sidebar backdrop (not on sidebar itself or toggle)
+      const isClickOnSidebar = sidebar.contains(e.target);
+      const isClickOnToggle = toggle.contains(e.target);
+      
+      if (!isClickOnSidebar && !isClickOnToggle) {
+        sidebar.classList.remove('open');
+        appShell.classList.remove('sidebar-open');
+      }
+    }
   });
 
   // Artist detail - back button

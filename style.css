@@ -1207,6 +1207,7 @@ input {
 
     .view {
         padding: 16px;
+        padding-bottom: calc(16px + 56px + env(safe-area-inset-bottom));
     }
 
     .section-title {
@@ -1345,6 +1346,7 @@ input {
     .topbar {
         padding: 0 12px 0 52px;
         height: 52px;
+        z-index: 51;
     }
 
     .topbar-btn {
@@ -1374,7 +1376,7 @@ input {
 
     /* --- NOW PLAYING OVERLAY MOBILE --- */
     .now-playing-overlay {
-        inset: 0 0 var(--player-h) 0;
+        inset: 0 0 calc(56px + var(--player-h) + env(safe-area-inset-bottom)) 0;
     }
 
     .overlay-art {
@@ -1436,7 +1438,7 @@ input {
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
         border-top: 1px solid var(--border);
-        z-index: 1000;
+        z-index: 1001;
         justify-content: space-around;
         align-items: center;
         padding: 0 16px;
@@ -1474,6 +1476,37 @@ input {
     /* Adjust player bar to sit above mobile nav */
     .player-bar {
         bottom: calc(56px + env(safe-area-inset-bottom));
+        z-index: 999; /* Ensure player bar sits below mobile nav */
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    /* Adjust now-playing overlay for mobile nav */
+    .now-playing-overlay {
+        inset: 0 0 calc(56px + var(--player-h) + env(safe-area-inset-bottom)) 0;
+    }
+
+    /* Sidebar backdrop - semi-transparent overlay when sidebar is open */
+    .app-shell.sidebar-open::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: calc(56px + env(safe-area-inset-bottom));
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 98;
+        pointer-events: auto;
+    }
+
+    /* Ensure main content has proper padding and click handling */
+    .main-content {
+        position: relative;
+        z-index: 100;
+    }
+
+    /* Video overlay mini mode - adjust for mobile nav */
+    .video-overlay.mini {
+        bottom: calc(56px + var(--player-h) + 16px + env(safe-area-inset-bottom));
     }
 }
 
