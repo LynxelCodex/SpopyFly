@@ -426,7 +426,6 @@ function openVideoFull() {
   document.getElementById('videoMiniCover').src = song.coverImageURL;
 
   playerWrapper.style.display = 'block';
-  document.getElementById('videoPlaceholder').style.display = 'none';
   overlay.classList.remove('mini');
   overlay.classList.add('open');
   document.getElementById('btnVideo').classList.add('active');
@@ -467,7 +466,6 @@ function closeVideoOverlay() {
   playerWrapper.style.display = 'none';
   overlay.classList.remove('open', 'mini', 'theater');
   document.getElementById('btnVideo').classList.remove('active');
-  document.getElementById('videoPlaceholder').style.display = '';
 
   if (state.currentTrackIndex !== -1 && state.isPlaying) setTimeout(() => ytPlayer.playVideo(), 100);
   isVideoMode = false;

@@ -567,10 +567,6 @@ input{font:inherit;}
       <div id="yt-player-wrapper">
         <div id="yt-player"></div>
       </div>
-      <div class="video-placeholder" id="videoPlaceholder">
-        <i data-lucide="tv" class="video-placeholder-icon"></i>
-        <p>Play a song first, then click Watch Video</p>
-      </div>
     </div>
     <div class="video-mini-bar" id="videoMiniBar">
       <div class="video-mini-info">
@@ -1001,10 +997,7 @@ function openVideoFull() {
   playerWrapper.style.position = 'fixed';
   playerWrapper.style.top = '0';
   playerWrapper.style.left = '0';
-  playerWrapper.style.zIndex = '2500';
-  playerWrapper.style.pointerEvents = 'auto';
-
-  document.getElementById('videoPlaceholder').style.display = 'none';
+  playerWrapper.style.display = 'block';
   overlay.classList.remove('mini');
   overlay.classList.add('open');
   document.getElementById('btnVideo').classList.add('active');
@@ -1051,12 +1044,9 @@ function closeVideoOverlay() {
   playerWrapper.style.right = '0';
   playerWrapper.style.top = 'auto';
   playerWrapper.style.left = 'auto';
-  playerWrapper.style.zIndex = '-1';
-  playerWrapper.style.pointerEvents = 'none';
-
+  playerWrapper.style.display = 'none';
   overlay.classList.remove('open', 'mini', 'theater');
   document.getElementById('btnVideo').classList.remove('active');
-  document.getElementById('videoPlaceholder').style.display = '';
 
   if (state.currentTrackIndex !== -1 && state.isPlaying) setTimeout(() => ytPlayer.playVideo(), 100);
   isVideoMode = false;
