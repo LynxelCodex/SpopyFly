@@ -344,6 +344,12 @@ function loadTrack(index, autoplay = true) {
   const song = songs[index];
   console.log(`Loading track: ${song.title} by ${song.artist}`, `(autoplay: ${autoplay})`);
 
+  // Close video overlay if open when changing tracks
+  const videoOverlay = document.getElementById('videoOverlay');
+  if (videoOverlay && videoOverlay.classList.contains('open')) {
+    closeVideoOverlay();
+  }
+
   document.querySelectorAll('.track-card.playing, .featured-card.playing').forEach(el => {
     el.classList.remove('playing');
   });
@@ -1129,16 +1135,33 @@ function openVideoFull() {
   // Hide placeholder
   if (placeholder) placeholder.style.display = 'none';
 
-  // Pause the hidden audio player to avoid double audio
-  if (state.isPlaying) {
-    ytPlayer.pauseVideo();
+  // Get current playback time from audio player for sync
+  let startTime = 0;
+  if (ytPlayer.getCurrentTime) {
+    try {
+      startTime = Math.floor(ytPlayer.getCurrentTime());
+    } catch (e) {
+      console.warn('Could not get current time:', e);
+      startTime = 0;
+    }
   }
 
-  // Create a visible YouTube iframe for the video
+  // Pause the hidden audio player to avoid double audio
+  // Only the video will play while the overlay is open
+  if (state.isPlaying) {
+    ytPlayer.pauseVideo();
+    console.log(`Video opened - synced to ${startTime}s`);
+  }
+
+  // Create a visible YouTube iframe for the video with time sync
   videoIframe = document.createElement('iframe');
-  videoIframe.src = `https://www.youtube.com/embed/${song.youtubeVideoID}?autoplay=1&rel=0&modestbranding=1`;
+  const embedUrl = `https://www.youtube.com/embed/${song.youtubeVideoID}?autoplay=1&rel=0&modestbranding=1&start=${startTime}`;
+  videoIframe.src = embedUrl;
   videoIframe.allow = 'autoplay; encrypted-media';
   videoIframe.allowFullscreen = true;
+  videoIframe.style.width = '100%';
+  videoIframe.style.height = '100%';
+  videoIframe.style.border = 'none';
   container.appendChild(videoIframe);
 
   // Open the overlay in full mode
@@ -1197,9 +1220,11 @@ function closeVideoOverlay() {
   const placeholder = document.getElementById('videoPlaceholder');
   if (placeholder) placeholder.style.display = '';
 
-  // Resume audio playback from the hidden player
-  if (state.currentTrackIndex !== -1) {
-    ytPlayer.playVideo();
+  // Resume audio playback if it was playing before opening video
+  if (state.currentTrackIndex !== -1 && state.isPlaying) {
+    setTimeout(() => {
+      ytPlayer.playVideo();
+    }, 100);
   }
 }
 
