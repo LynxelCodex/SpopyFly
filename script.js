@@ -998,6 +998,7 @@ function bindEvents() {
   // Watch Video button
   document.getElementById('btnVideo').addEventListener('click', toggleVideoOverlay);
   document.getElementById('videoClose').addEventListener('click', closeVideoOverlay);
+  document.getElementById('videoTheater').addEventListener('click', toggleTheaterMode);
   document.getElementById('videoMinimize').addEventListener('click', minimizeVideo);
   document.getElementById('videoExpand').addEventListener('click', expandVideo);
   document.getElementById('videoMiniExpand').addEventListener('click', expandVideo);
@@ -1133,6 +1134,10 @@ function openVideoFull() {
   document.getElementById('videoMiniArtist').textContent = song.artist;
   document.getElementById('videoMiniCover').src = song.coverImageURL;
 
+  // Hide the placeholder so iframe is visible
+  const placeholder = document.getElementById('videoPlaceholder');
+  if (placeholder) placeholder.style.display = 'none';
+
   // Expand the unified YouTube player to fill the overlay
   playerWrapper.style.width = '100vw';
   playerWrapper.style.height = '100vh';
@@ -1174,8 +1179,23 @@ function expandVideo() {
   if (!overlay.classList.contains('open')) return;
 
   overlay.classList.remove('mini');
+  overlay.classList.remove('theater');
 
   // Swap header buttons: show minimize, hide expand
+  document.getElementById('videoMinimize').style.display = '';
+  document.getElementById('videoExpand').style.display = 'none';
+
+  lucide.createIcons();
+}
+
+function toggleTheaterMode() {
+  const overlay = document.getElementById('videoOverlay');
+  if (!overlay.classList.contains('open')) return;
+
+  overlay.classList.toggle('theater');
+  overlay.classList.remove('mini');
+
+  // Swap header buttons
   document.getElementById('videoMinimize').style.display = '';
   document.getElementById('videoExpand').style.display = 'none';
 
@@ -1199,6 +1219,7 @@ function closeVideoOverlay() {
 
   overlay.classList.remove('open');
   overlay.classList.remove('mini');
+  overlay.classList.remove('theater');
   document.getElementById('btnVideo').classList.remove('active');
 
   // Show placeholder again
