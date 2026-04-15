@@ -55,18 +55,18 @@ input {
 
 /* ── CSS VARIABLES ──────────────────────────────────────────────── */
 :root {
-    --bg: #000000;
-    --bg-sidebar: #000000;
-    --bg-card: #181818;
-    --bg-card-hover: #282828;
-    --bg-topbar: rgba(0, 0, 0, 0.6);
-    --bg-player: #181818;
+    --bg: linear-gradient(135deg, #0a0a1a 0%, #1a0a3e 25%, #0a1a3a 50%, #1a0a2e 75%, #0a0a1a 100%);
+    --bg-sidebar: rgba(10, 10, 26, 0.8);
+    --bg-card: rgba(26, 10, 62, 0.6);
+    --bg-card-hover: rgba(40, 20, 80, 0.8);
+    --bg-topbar: rgba(0, 0, 0, 0.4);
+    --bg-player: rgba(15, 10, 40, 0.9);
     --accent: #E63946;
     --accent-hover: #FF6B6B;
     --text-primary: #FFFFFF;
     --text-secondary: #B3B3B3;
     --text-muted: #6A6A6A;
-    --border: #282828;
+    --border: rgba(60, 30, 100, 0.5);
     --sidebar-w: 240px;
     --player-h: 90px;
     --topbar-h: 64px;
