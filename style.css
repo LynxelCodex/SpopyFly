@@ -1284,7 +1284,10 @@ input {
 
 /* ═══════════════════════════════════════════════════════════
    VIDEO OVERLAY (Watch Music Video)
+   Supports two modes: full (centered) and mini (PiP corner)
 ═══════════════════════════════════════════════════════════ */
+
+/* --- FULL MODE (default when .open) --- */
 .video-overlay {
     position: fixed;
     inset: 0;
@@ -1299,7 +1302,7 @@ input {
     opacity: 0;
     visibility: hidden;
     transform: translateY(20px);
-    transition: opacity 0.35s ease, visibility 0.35s ease, transform 0.35s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .video-overlay.open {
@@ -1308,6 +1311,49 @@ input {
     transform: translateY(0);
 }
 
+/* --- MINI MODE (PiP) --- */
+.video-overlay.mini {
+    inset: auto;
+    bottom: calc(var(--player-h) + 16px);
+    right: 16px;
+    width: 400px;
+    height: auto;
+    border-radius: 12px;
+    background: #1a1a1a;
+    backdrop-filter: none;
+    box-shadow:
+        0 16px 48px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(255, 255, 255, 0.08);
+    transform: translateY(0) scale(1);
+    overflow: hidden;
+}
+
+.video-overlay.mini .video-overlay-header {
+    position: relative;
+    background: none;
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.video-overlay.mini .video-overlay-title {
+    font-size: 1.3rem;
+}
+
+.video-overlay.mini .video-overlay-subtitle {
+    font-size: 1.1rem;
+}
+
+.video-overlay.mini .video-container {
+    width: 100%;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.video-overlay.mini .video-mini-bar {
+    display: flex;
+}
+
+/* --- Header --- */
 .video-overlay-header {
     position: absolute;
     top: 0;
@@ -1325,22 +1371,38 @@ input {
     display: flex;
     flex-direction: column;
     gap: 2px;
+    min-width: 0;
+    flex: 1;
 }
 
 .video-overlay-title {
     font-size: 1.6rem;
     font-weight: 700;
     color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .video-overlay-subtitle {
     font-size: 1.2rem;
     color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.video-overlay-close {
-    width: 40px;
-    height: 40px;
+/* --- Header action buttons --- */
+.video-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.video-action-btn {
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1352,16 +1414,21 @@ input {
     transition: background var(--transition), transform var(--transition);
 }
 
-.video-overlay-close:hover {
+.video-action-btn:hover {
     background: rgba(255, 255, 255, 0.2);
     transform: scale(1.1);
 }
 
-.video-overlay-close svg {
-    width: 20px;
-    height: 20px;
+.video-action-btn svg {
+    width: 16px;
+    height: 16px;
 }
 
+.video-close-btn:hover {
+    background: rgba(255, 60, 60, 0.4);
+}
+
+/* --- Video container --- */
 .video-container {
     width: min(900px, 90vw);
     aspect-ratio: 16 / 9;
@@ -1370,6 +1437,7 @@ input {
     box-shadow: 0 32px 80px rgba(0, 0, 0, 0.8);
     position: relative;
     background: #0a0a0a;
+    transition: width 0.3s ease, border-radius 0.3s ease;
 }
 
 .video-container iframe {
@@ -1397,7 +1465,92 @@ input {
     opacity: 0.3;
 }
 
-/* Watch Video button in player bar — green glow accent */
+/* --- Mini player bottom bar --- */
+.video-mini-bar {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    background: #1a1a1a;
+}
+
+.video-mini-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    flex: 1;
+}
+
+.video-mini-cover {
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.video-mini-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+}
+
+.video-mini-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.video-mini-artist {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.video-mini-controls {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.video-mini-btn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color var(--transition), background var(--transition);
+}
+
+.video-mini-btn:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.video-mini-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+.video-mini-close:hover {
+    color: #ff4040;
+}
+
+/* --- Watch Video button in player bar --- */
 .video-btn {
     position: relative;
 }
@@ -1418,6 +1571,7 @@ input {
     background: var(--accent);
 }
 
+/* --- Responsive --- */
 @media (max-width: 768px) {
     .video-container {
         width: 95vw;
@@ -1426,5 +1580,11 @@ input {
 
     .video-overlay-header {
         padding: 12px 16px;
+    }
+
+    .video-overlay.mini {
+        width: 280px;
+        right: 8px;
+        bottom: calc(var(--player-h) + 8px);
     }
 }

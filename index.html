@@ -262,20 +262,49 @@
 
   <!-- VIDEO OVERLAY (shows the actual YouTube music video) -->
   <div class="video-overlay" id="videoOverlay">
+    <!-- Header bar with song info and action buttons -->
     <div class="video-overlay-header">
       <div class="video-overlay-info">
         <span class="video-overlay-title" id="videoTitle">Now Playing</span>
         <span class="video-overlay-subtitle" id="videoSubtitle">Select a track to watch</span>
       </div>
-      <button class="video-overlay-close" id="videoClose" aria-label="Close video">
-        <i data-lucide="x"></i>
-      </button>
+      <div class="video-header-actions">
+        <button class="video-action-btn" id="videoMinimize" aria-label="Minimize to mini player" title="Mini Player">
+          <i data-lucide="picture-in-picture-2"></i>
+        </button>
+        <button class="video-action-btn" id="videoExpand" aria-label="Expand to full view" title="Full View" style="display:none;">
+          <i data-lucide="maximize-2"></i>
+        </button>
+        <button class="video-action-btn video-close-btn" id="videoClose" aria-label="Close video" title="Close">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
     </div>
+
+    <!-- Video iframe container -->
     <div class="video-container" id="videoContainer">
-      <!-- Visible YouTube iframe will be inserted here by JS -->
       <div class="video-placeholder" id="videoPlaceholder">
         <i data-lucide="tv" class="video-placeholder-icon"></i>
         <p>Play a song first, then click Watch Video</p>
+      </div>
+    </div>
+
+    <!-- Mini player bottom bar (visible only in mini mode) -->
+    <div class="video-mini-bar" id="videoMiniBar">
+      <div class="video-mini-info">
+        <img class="video-mini-cover" id="videoMiniCover" src="" alt="" />
+        <div class="video-mini-meta">
+          <span class="video-mini-title" id="videoMiniTitle"></span>
+          <span class="video-mini-artist" id="videoMiniArtist"></span>
+        </div>
+      </div>
+      <div class="video-mini-controls">
+        <button class="video-mini-btn" id="videoMiniExpand" aria-label="Expand" title="Expand">
+          <i data-lucide="maximize-2"></i>
+        </button>
+        <button class="video-mini-btn video-mini-close" id="videoMiniClose" aria-label="Close" title="Close">
+          <i data-lucide="x"></i>
+        </button>
       </div>
     </div>
   </div>

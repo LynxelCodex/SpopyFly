@@ -780,6 +780,10 @@ function bindEvents() {
   // Watch Video button
   document.getElementById('btnVideo').addEventListener('click', toggleVideoOverlay);
   document.getElementById('videoClose').addEventListener('click', closeVideoOverlay);
+  document.getElementById('videoMinimize').addEventListener('click', minimizeVideo);
+  document.getElementById('videoExpand').addEventListener('click', expandVideo);
+  document.getElementById('videoMiniExpand').addEventListener('click', expandVideo);
+  document.getElementById('videoMiniClose').addEventListener('click', closeVideoOverlay);
 
   const searchInput = document.getElementById('searchInput');
   searchInput.addEventListener('input', () => {
@@ -817,6 +821,7 @@ function bindEvents() {
 
 /* ===================================================================
    9. VIDEO OVERLAY (Watch Music Video)
+   Supports full mode (centered) and mini mode (PiP corner)
 =================================================================== */
 let videoIframe = null;
 
@@ -824,21 +829,37 @@ function toggleVideoOverlay() {
   const overlay = document.getElementById('videoOverlay');
   const isOpen = overlay.classList.contains('open');
 
-  if (isOpen) {
+  if (isOpen && !overlay.classList.contains('mini')) {
     closeVideoOverlay();
+    return;
+  }
+
+  // If currently in mini mode, expand instead of close
+  if (isOpen && overlay.classList.contains('mini')) {
+    expandVideo();
     return;
   }
 
   // Must have a track loaded
   if (state.currentTrackIndex === -1) return;
 
+  openVideoFull();
+}
+
+function openVideoFull() {
   const song = songs[state.currentTrackIndex];
+  const overlay = document.getElementById('videoOverlay');
   const container = document.getElementById('videoContainer');
   const placeholder = document.getElementById('videoPlaceholder');
 
   // Update title info
   document.getElementById('videoTitle').textContent = song.title;
-  document.getElementById('videoSubtitle').textContent = song.artist + ' — Music Video';
+  document.getElementById('videoSubtitle').textContent = song.artist + ' \u2014 Music Video';
+
+  // Update mini bar info
+  document.getElementById('videoMiniTitle').textContent = song.title;
+  document.getElementById('videoMiniArtist').textContent = song.artist;
+  document.getElementById('videoMiniCover').src = song.coverImageURL;
 
   // Remove old iframe if any
   if (videoIframe) {
@@ -861,9 +882,42 @@ function toggleVideoOverlay() {
   videoIframe.allowFullscreen = true;
   container.appendChild(videoIframe);
 
-  // Open the overlay
+  // Open the overlay in full mode
+  overlay.classList.remove('mini');
   overlay.classList.add('open');
   document.getElementById('btnVideo').classList.add('active');
+
+  // Show minimize button, hide expand button
+  document.getElementById('videoMinimize').style.display = '';
+  document.getElementById('videoExpand').style.display = 'none';
+
+  lucide.createIcons();
+}
+
+function minimizeVideo() {
+  const overlay = document.getElementById('videoOverlay');
+  if (!overlay.classList.contains('open')) return;
+
+  overlay.classList.add('mini');
+
+  // Swap header buttons: hide minimize, show expand
+  document.getElementById('videoMinimize').style.display = 'none';
+  document.getElementById('videoExpand').style.display = '';
+
+  lucide.createIcons();
+}
+
+function expandVideo() {
+  const overlay = document.getElementById('videoOverlay');
+  if (!overlay.classList.contains('open')) return;
+
+  overlay.classList.remove('mini');
+
+  // Swap header buttons: show minimize, hide expand
+  document.getElementById('videoMinimize').style.display = '';
+  document.getElementById('videoExpand').style.display = 'none';
+
+  lucide.createIcons();
 }
 
 function closeVideoOverlay() {
@@ -871,6 +925,7 @@ function closeVideoOverlay() {
   if (!overlay.classList.contains('open')) return;
 
   overlay.classList.remove('open');
+  overlay.classList.remove('mini');
   document.getElementById('btnVideo').classList.remove('active');
 
   // Remove iframe to stop video playback
