@@ -1241,7 +1241,7 @@ input {
 @media (max-width: 768px) {
     :root {
         --sidebar-w: 0px;
-        --player-h: 64px;
+        --player-h: 72px;
     }
 
     .app-shell {
@@ -1344,14 +1344,14 @@ input {
     /* Main player content row */
     .player-bar .player-track-info {
         flex: 1;
-        padding: 0;
-        gap: 10px;
+        padding: 8px;
+        gap: 12px;
         min-width: 0;
     }
 
     .player-bar .player-cover-wrap {
-        width: 42px;
-        height: 42px;
+        width: 48px;
+        height: 48px;
         border-radius: 4px;
     }
 
@@ -1387,22 +1387,27 @@ input {
     }
 
     .control-buttons {
-        gap: 2px;
+        gap: 4px;
     }
 
     .ctrl-btn.secondary {
-        width: 36px;
-        height: 36px;
+        width: 44px;
+        height: 44px;
     }
 
     .ctrl-btn.primary {
-        width: 36px;
-        height: 36px;
+        width: 48px;
+        height: 48px;
     }
 
     .ctrl-btn.primary svg {
-        width: 16px;
-        height: 16px;
+        width: 20px;
+        height: 20px;
+    }
+
+    .ctrl-btn.secondary svg {
+        width: 20px;
+        height: 20px;
     }
 
     .player-extras {
@@ -1412,33 +1417,27 @@ input {
     /* TOPBAR MOBILE */
     .topbar {
         padding: 0 12px 0 52px;
-        height: 52px;
+        height: 56px;
         z-index: 51;
     }
 
     .topbar-btn {
-        width: 28px;
-        height: 28px;
+        width: 40px;
+        height: 40px;
     }
 
     .topbar-btn svg {
-        width: 16px;
-        height: 16px;
-    }
-
-    /* Show search bar on mobile when search view is active */
-    .topbar-search-wrap {
-        max-width: 100%;
-        flex: 1;
+        width: 18px;
+        height: 18px;
     }
 
     .topbar-search {
-        padding: 8px 12px 8px 34px;
+        padding: 10px 12px 10px 36px;
         font-size: 1.3rem;
     }
 
     .topbar-search-icon {
-        left: 10px;
+        left: 12px;
     }
 
     /* NOW PLAYING OVERLAY MOBILE */
