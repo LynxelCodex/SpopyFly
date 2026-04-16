@@ -474,6 +474,15 @@ function showView(viewName) {
   const searchWrap = document.getElementById('topbarSearchWrap');
   if (searchWrap) searchWrap.style.display = viewName === 'search' ? 'flex' : 'none';
 
+  // When showing home view, render appropriate content
+  if (viewName === 'home') {
+    if (state.currentTrackIndex === -1) {
+      showEmptyState();
+    } else {
+      generateRecommendations(state.currentTrackIndex);
+    }
+  }
+
   if (viewHistory[viewHistory.length - 1] !== viewName) viewHistory.push(viewName);
   document.getElementById('mainContent').scrollTop = 0;
 }
