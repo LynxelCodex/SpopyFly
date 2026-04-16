@@ -7,46 +7,174 @@ const YOUTUBE_API_KEY = 'AIzaSyCwciHt_mhdeGVeF4DYHKxYQAJ2a24uFTc'; // Replace wi
 
 // Load songs from localStorage, fallback to default
 let songs = JSON.parse(localStorage.getItem('spotifyCloneSongs')) || [
-  { title: 'Blinding Lights', artist: 'The Weeknd', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b2738863bc11d2aa12b54f5aeb36', youtubeVideoID: '4NRXx6U8ABQ' },
-  { title: 'Shape of You', artist: 'Ed Sheeran', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273ba5db46f4b838ef6027e6f96', youtubeVideoID: 'JGwWNGJdvx8' },
-  { title: 'Stay', artist: 'The Kid LAROI & Justin Bieber', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273a91c10fe9472d9bd89802e14', youtubeVideoID: 'kTJczUoc26U' },
-  { title: 'Levitating', artist: 'Dua Lipa', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b2734bc66095f8a70bc4e6593f4f', youtubeVideoID: 'TUVcZfQe-Kw' },
-  { title: 'Peaches', artist: 'Justin Bieber', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b27312a2db8bb4c0d525c00bd2b9', youtubeVideoID: 'tQ0yjYUFKAE' },
-  { title: 'drivers license', artist: 'Olivia Rodrigo', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b27384a87d439bdb2b37c10e9d0c', youtubeVideoID: 'ZmDBbnmKpqQ' },
-  { title: 'Watermelon Sugar', artist: 'Harry Styles', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273e2e352d89826aef6dbd5ff8f', youtubeVideoID: 'E07s5ZYygMg' },
-  { title: 'Save Your Tears', artist: 'The Weeknd', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b2738863bc11d2aa12b54f5aeb36', youtubeVideoID: 'LIIDh-qI9oI' },
-  { title: 'Good 4 U', artist: 'Olivia Rodrigo', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b27384a87d439bdb2b37c10e9d0c', youtubeVideoID: 'gNi_6U5Pm_o' },
-  { title: 'Montero', artist: 'Lil Nas X', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273be82673b5f79d9658ec0a9fd', youtubeVideoID: '6swmTBVI83k' },
-  { title: 'Kiss Me More', artist: 'Doja Cat ft. SZA', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b2736cbf4b0e3f2c31d0b2b3f3b6', youtubeVideoID: '0EVVKs6DKA0' },
-  { title: 'Bad Guy', artist: 'Billie Eilish', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273c6f7af36bc1f8b953d4dc274', youtubeVideoID: 'DyDfgMOUjCI' },
-  { title: 'Blank Space', artist: 'Taylor Swift', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273b7ddfc14f36e4f3a7f805a5a', youtubeVideoID: 'e-ORhEE9VVg' },
-  { title: 'Style', artist: 'Taylor Swift', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273b7ddfc14f36e4f3a7f805a5a', youtubeVideoID: '-CmadmM5cOk' },
-  { title: 'Shake It Off', artist: 'Taylor Swift', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273b7ddfc14f36e4f3a7f805a5a', youtubeVideoID: 'nfWlot6h_JM' },
-  { title: 'Bad Blood', artist: 'Taylor Swift', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273b7ddfc14f36e4f3a7f805a5a', youtubeVideoID: 'QqwH2i_845c' },
-  { title: 'Wildest Dreams', artist: 'Taylor Swift', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273b7ddfc14f36e4f3a7f805a5a', youtubeVideoID: 'IdneKLooZaU' },
-  { title: 'Dreams', artist: 'Fleetwood Mac', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273e9112fa1dbab69da97992983', youtubeVideoID: 'Y3ywicfc0Lc' },
-  { title: 'Go Your Own Way', artist: 'Fleetwood Mac', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273e9112fa1dbab69da97992983', youtubeVideoID: '6ul-cZyuYq4' },
-  { title: "Don't Stop", artist: 'Fleetwood Mac', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273e9112fa1dbab69da97992983', youtubeVideoID: 'SyTvR1vWfB8' },
-  { title: 'The Chain', artist: 'Fleetwood Mac', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273e9112fa1dbab69da97992983', youtubeVideoID: 'PCXpE2856yY' },
-  { title: 'Never Going Back Again', artist: 'Fleetwood Mac', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273e9112fa1dbab69da97992983', youtubeVideoID: 'sKkWg2kRAl4' },
-  { title: 'BLOOD.', artist: 'Kendrick Lamar', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b2738b52c6b9bc4e43d873869699', youtubeVideoID: 'V-HkLDEY_Ew' },
-  { title: 'DNA.', artist: 'Kendrick Lamar', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b2738b52c6b9bc4e43d873869699', youtubeVideoID: 'NLZRYQMLDW4' },
-  { title: 'YAH.', artist: 'Kendrick Lamar', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b2738b52c6b9bc4e43d873869699', youtubeVideoID: 'vCNOeS3zXEQ' },
-  { title: 'ELEMENT.', artist: 'Kendrick Lamar', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b2738b52c6b9bc4e43d873869699', youtubeVideoID: 'glaG64Ao7sM' },
-  { title: 'LOYALTY.', artist: 'Kendrick Lamar', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b2738b52c6b9bc4e43d873869699', youtubeVideoID: 'Dlg-P005U-Y' },
-  { title: 'One More Time', artist: 'Daft Punk', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273e319bbafea153f387a32fd83', youtubeVideoID: 'FGBhQbmPwH8' },
-  { title: 'Aerodynamic', artist: 'Daft Punk', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273e319bbafea153f387a32fd83', youtubeVideoID: 'L93-7vRfxNs' },
-  { title: 'Digital Love', artist: 'Daft Punk', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273e319bbafea153f387a32fd83', youtubeVideoID: 'F_O1E42XlEI' },
-  { title: 'Harder, Better, Faster, Stronger', artist: 'Daft Punk', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273e319bbafea153f387a32fd83', youtubeVideoID: 'gAjR4_CbPpQ' },
-  { title: 'Something About Us', artist: 'Daft Punk', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b273e319bbafea153f387a32fd83', youtubeVideoID: 'em0MknB6wVw' },
-  { title: 'Hello', artist: 'Adele', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b27318ff24f5a3f2db1901a14da9', youtubeVideoID: 'YQHsXMglC9A' },
-  { title: 'Send My Love (To Your New Lover)', artist: 'Adele', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b27318ff24f5a3f2db1901a14da9', youtubeVideoID: 'fk4BbF7B29w' },
-  { title: 'I Miss You', artist: 'Adele', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b27318ff24f5a3f2db1901a14da9', youtubeVideoID: 'dHn1_u9S3T0' },
-  { title: 'When We Were Young', artist: 'Adele', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b27318ff24f5a3f2db1901a14da9', youtubeVideoID: 'DDWKuo3gXMQ' },
-  { title: 'Remedy', artist: 'Adele', coverImageURL: 'https://i.scdn.co/image/ab67616d0000b27318ff24f5a3f2db1901a14da9', youtubeVideoID: 'rH4lP2lRlc0' }
+  // ---------------- DIONELA ----------------
+  { title: 'Sining', artist: 'Dionela feat. Jay R', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Sining', youtubeVideoID: 'Au6NULHAPXU' },
+  { title: 'Musika', artist: 'Dionela', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Musika', youtubeVideoID: 'J3e3mC0G3Gk' },
+  { title: 'Oksihina', artist: 'Dionela', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Oksihina', youtubeVideoID: 'jwnsMH1OSCA' },
+  { title: '153', artist: 'Dionela', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=153', youtubeVideoID: 'OcFU6BphLj4' },
+  { title: 'Suyo', artist: 'Dionela', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Suyo', youtubeVideoID: 'YwPFNmk82Z4' },
+  { title: 'Bahaghari', artist: 'Dionela', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Bahaghari', youtubeVideoID: 'nJl5oMnGe7A' },
+  { title: 'Tanging Akin', artist: 'Dionela', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Tanging+Akin', youtubeVideoID: 'Au6NULHAPXU' },
+
+  // ---------------- JAY R ----------------
+  { title: 'Bakit Pa Ba', artist: 'Jay R', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Bakit+Pa+Ba', youtubeVideoID: 'Ntp1KgBMqAE' },
+  { title: 'Design', artist: 'Jay R', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Design', youtubeVideoID: 'yOEJvZNREYk' },
+  { title: "Ngayo'y Naririto", artist: 'Jay R', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Ngayoy+Naririto', youtubeVideoID: 'cUgJwq6IGPI' },
+  { title: 'Kung Mahal Mo Siya', artist: 'Jay R', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Kung+Mahal+Mo+Siya', youtubeVideoID: '1fT2F_D08vM' },
+  { title: "Laging Naro'n Ka", artist: 'Jay R', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Laging+Naron+Ka', youtubeVideoID: 'VIvqVs8_IJ0' },
+  { title: 'No One Else Comes Close', artist: 'Jay R', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=No+One+Else', youtubeVideoID: '0qg4_Bf_n7w' },
+
+  // ---------------- HEV ABI ----------------
+  { title: 'Alam Mo Ba Girl', artist: 'Hev Abi', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Alam+Mo+Ba+Girl', youtubeVideoID: 'c5s7t302G-8' },
+  { title: 'Walang Alam', artist: 'Hev Abi', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Walang+Alam', youtubeVideoID: 'K48VbO1_U1c' },
+  { title: 'Welcome2DTQ', artist: 'Hev Abi', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Welcome2DTQ', youtubeVideoID: 't-dM1t_G1jM' },
+  { title: 'Para Sa Street', artist: 'Hev Abi', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Para+Sa+Street', youtubeVideoID: 'G13m702lB3M' },
+  { title: 'Sumugal', artist: 'Hev Abi', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Sumugal', youtubeVideoID: 'xG-3sT-V0b4' },
+  { title: 'LK', artist: 'Hev Abi', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=LK', youtubeVideoID: 'rN9Lw49x6gQ' },
+  { title: 'Pasensya', artist: 'Hev Abi', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Pasensya', youtubeVideoID: 'zLqbJMbCJRk' },
+
+  // ---------------- DENISE JULIA ----------------
+  { title: 'B.A.D.', artist: 'Denise Julia feat. P-Lo', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=B.A.D.', youtubeVideoID: 'P5Wj2tKx_4w' },
+  { title: 'NVMD', artist: 'Denise Julia', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=NVMD', youtubeVideoID: 'uH-KjJ0Wf-o' },
+  { title: 'bum 2 me', artist: 'Denise Julia', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=bum+2+me', youtubeVideoID: 'L3U9dK5v-Z0' },
+  { title: "Sugar n' Spice", artist: 'Denise Julia', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Sugar+n+Spice', youtubeVideoID: 'WP61j0TXPAM' },
+  { title: "Lackin'", artist: 'Denise Julia', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Lackin', youtubeVideoID: 'G9v_QvW9e-0' },
+  { title: 'Boy Toy', artist: 'Denise Julia', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Boy+Toy', youtubeVideoID: 'n2OhXERnCbs' },
+
+  // ---------------- P-LO ----------------
+  { title: "Put Me On Somethin'", artist: 'P-Lo feat. E-40', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Put+Me+On', youtubeVideoID: 'U-uadpyaPU8' },
+  { title: 'Same Squad', artist: 'P-Lo', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Same+Squad', youtubeVideoID: '0SeZHOqSsZA' },
+  { title: 'Sneeze', artist: 'P-Lo', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Sneeze', youtubeVideoID: 'RKzXXgmAYr8' },
+  { title: 'About It', artist: 'P-Lo', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=About+It', youtubeVideoID: 'DyLaVrFkGfU' },
+
+  // ---------------- ZACK TABUDLO ----------------
+  { title: 'Gusto', artist: 'Zack Tabudlo & Al James', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Gusto', youtubeVideoID: 'UlYFnwuuiTc' },
+  { title: 'Binibini', artist: 'Zack Tabudlo', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Binibini', youtubeVideoID: 'DhzDmhytrTI' },
+  { title: 'Pano', artist: 'Zack Tabudlo', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Pano', youtubeVideoID: 'mnrSOA_QZm4' },
+  { title: 'Nangangamba', artist: 'Zack Tabudlo', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Nangangamba', youtubeVideoID: 'W2Q47P6q6_o' },
+  { title: 'Asan Ka Na Ba', artist: 'Zack Tabudlo', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Asan+Ka+Na+Ba', youtubeVideoID: '5V8yv2pZf1A' },
+  { title: 'Give Me Your Forever', artist: 'Zack Tabudlo', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Give+Me+Your', youtubeVideoID: 'f0s6oG2J-nI' },
+  { title: 'Fallin', artist: 'Zack Tabudlo', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Fallin', youtubeVideoID: 'DGpzBOSiyxY' },
+  { title: 'Yakap', artist: 'Zack Tabudlo', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Yakap', youtubeVideoID: 'LsN5XIMQYVY' },
+  { title: 'Habang Buhay', artist: 'Zack Tabudlo', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Habang+Buhay', youtubeVideoID: 'RkX3iiI317k' },
+
+  // ---------------- AL JAMES ----------------
+  { title: 'Pahinga', artist: 'Al James', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Pahinga', youtubeVideoID: 'aG3l7g7m8Wk' },
+  { title: 'Ngayon Lang', artist: 'Al James', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Ngayon+Lang', youtubeVideoID: 'QfnBpb6lRoA' },
+  { title: 'Pa-Umaga', artist: 'Al James', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Pa-Umaga', youtubeVideoID: 'h3y95x-aC-I' },
+  { title: 'Latigo', artist: 'Al James', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Latigo', youtubeVideoID: '2G-TqB8HjFw' },
+  { title: 'Atin-Atin Lang', artist: 'Al James', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Atin-Atin+Lang', youtubeVideoID: 'Vb27o7o5Hh0' },
+  { title: 'PSG', artist: 'Al James', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=PSG', youtubeVideoID: 'IhNifdQf5Oo' },
+
+  // ---------------- MAKI ----------------
+  { title: 'Dilaw', artist: 'Maki', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Dilaw', youtubeVideoID: '0_X0J9y34c0' },
+  { title: 'Saan?', artist: 'Maki', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Saan', youtubeVideoID: '37k-7Z5rL6A' },
+  { title: 'Namumula', artist: 'Maki', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Namumula', youtubeVideoID: 'hR-vO1O0L4A' },
+  { title: 'Bakit?', artist: 'Maki', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Bakit', youtubeVideoID: '7TfJ2f8Tf8Q' },
+  { title: 'Kailan?', artist: 'Maki', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Kailan', youtubeVideoID: 'CdBrlHkb5pY' },
+  { title: 'HBD', artist: 'Maki', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=HBD', youtubeVideoID: 'fHqLRrqx3Rk' },
+  { title: 'Sikulo', artist: 'Maki', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Sikulo', youtubeVideoID: 'E7e4ILjfHsI' },
+
+  // ---------------- BINI ----------------
+  { title: 'Pantropiko', artist: 'BINI', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Pantropiko', youtubeVideoID: 'UfGJgN3lYBU' },
+  { title: 'Salamin, Salamin', artist: 'BINI', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Salamin+Salamin', youtubeVideoID: 'xPFI6fps8jY' },
+  { title: 'Karera', artist: 'BINI', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Karera', youtubeVideoID: '-6IGDmoqMSc' },
+  { title: 'Lagi', artist: 'BINI', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Lagi', youtubeVideoID: 'mtQH9Vc0kl4' },
+  { title: 'Na Na Na', artist: 'BINI', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Na+Na+Na', youtubeVideoID: 'Z82-WwY828k' },
+  { title: 'Cherry On Top', artist: 'BINI', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Cherry+On+Top', youtubeVideoID: 'PSuQLueZIRY' },
+  { title: 'Huwag Muna Tayong Umuwi', artist: 'BINI', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Huwag+Muna', youtubeVideoID: 'yQe6gXJmXqU' },
+  { title: 'I Feel Good', artist: 'BINI', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=I+Feel+Good', youtubeVideoID: 'V14vX9L0y1Y' },
+  { title: 'Born to Win', artist: 'BINI', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Born+To+Win', youtubeVideoID: '4n34_Z05hWk' },
+
+  // ---------------- CUP OF JOE ----------------
+  { title: 'Tingin', artist: 'Cup of Joe & Janine Teñoso', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Tingin', youtubeVideoID: 'j5hcNbbpWQk' },
+  { title: 'Misteryoso', artist: 'Cup of Joe', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Misteryoso', youtubeVideoID: 'Bm3xGPFh4FU' },
+  { title: 'Ikaw Pa Rin Ang Pipiliin Ko', artist: 'Cup of Joe', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Ikaw+Pa+Rin', youtubeVideoID: 'f_LIJMUiA5E' },
+  { title: 'Estranghero', artist: 'Cup of Joe', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Estranghero', youtubeVideoID: 'P5e-5DV8_D8' },
+  { title: 'Mananatili', artist: 'Cup of Joe', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Mananatili', youtubeVideoID: 'JJ-JijHnlNQ' },
+  { title: 'Patutunguhan', artist: 'Cup of Joe', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Patutunguhan', youtubeVideoID: '17_jT4D1F-Y' },
+  { title: 'Sagada', artist: 'Cup of Joe', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Sagada', youtubeVideoID: 'w2c7Z543uYk' },
+  { title: 'Wag Na Lang', artist: 'Cup of Joe', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Wag+Na+Lang', youtubeVideoID: 'Wz_P2L6dZ6M' },
+
+  // ---------------- JANINE TEÑOSO ----------------
+  { title: "'Di Na Muli", artist: 'Janine Teñoso', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Di+Na+Muli', youtubeVideoID: 'm1r07bnaBbM' },
+  { title: 'Pelikula', artist: 'Janine Teñoso feat. Arthur Nery', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Pelikula', youtubeVideoID: '20hR5c1R2_8' },
+  { title: 'Tag-araw', artist: 'Janine Teñoso', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Tag-Araw', youtubeVideoID: 'DqlLU2cupro' },
+  { title: 'Umibig Muli', artist: 'Janine Teñoso', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Umibig+Muli', youtubeVideoID: 'e1P_n1x-5uQ' },
+  { title: 'Hulaan', artist: 'Janine Teñoso', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Hulaan', youtubeVideoID: 'aE5yqFq8PjQ' },
+
+  // ---------------- OVER OCTOBER ----------------
+  { title: 'Ikot', artist: 'Over October', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Ikot', youtubeVideoID: 'R_Q0B6L5Z5Q' },
+  { title: 'Ating Dalawa', artist: 'Over October', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Ating+Dalawa', youtubeVideoID: 'c6W6_12y9aI' },
+  { title: 'Sandali Lang', artist: 'Over October', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Sandali+Lang', youtubeVideoID: 'U_7i5f5W8Gk' },
+  { title: 'Arbitrary', artist: 'Over October', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Arbitrary', youtubeVideoID: 'R9-2uW7327E' },
+  { title: 'Never Stop', artist: 'Over October', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Never+Stop', youtubeVideoID: 'F3aJkKzK7Y8' },
+  { title: 'Wait', artist: 'Over October', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Wait', youtubeVideoID: 'Qh_a18GgXv0' },
+  { title: 'Intertwine', artist: 'Over October', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Intertwine', youtubeVideoID: 'i9X1dK8sO_A' },
+
+  // ---------------- ROB DENIEL ----------------
+  { title: 'RomCom', artist: 'Rob Deniel', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=RomCom', youtubeVideoID: 'kYJ5o-v3vT4' },
+  { title: 'Ulap', artist: 'Rob Deniel', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Ulap', youtubeVideoID: 'nXOe-p94AQI' },
+  { title: 'Miss Miss', artist: 'Rob Deniel', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Miss+Miss', youtubeVideoID: 'aG-n9D6m5y0' },
+  { title: 'Ang Pag-ibig', artist: 'Rob Deniel', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Ang+Pag-ibig', youtubeVideoID: '8KIHE226YXM' },
+  { title: 'Sinta', artist: 'Rob Deniel', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Sinta', youtubeVideoID: 'Zf09xJ5D090' },
+  { title: 'Gabi', artist: 'Rob Deniel', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Gabi', youtubeVideoID: 'F3S019h7-2Q' },
+  { title: 'Darling', artist: 'Rob Deniel', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Darling', youtubeVideoID: 'I8nKyd7kxlE' },
+
+  // ---------------- ARTHUR MIGUEL ----------------
+  { title: 'Lihim', artist: 'Arthur Miguel', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Lihim', youtubeVideoID: '-trPbcsJ9O4' },
+  { title: 'Ang Wakas', artist: 'Arthur Miguel', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Ang+Wakas', youtubeVideoID: 'q-8wJ9J3a4c' },
+  { title: 'Dito', artist: 'Arthur Miguel', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Dito', youtubeVideoID: '8Pj6Yv7wQvI' },
+  { title: 'Paano?', artist: 'Arthur Miguel', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Paano', youtubeVideoID: 'y0r_aXhS_64' },
+  { title: 'Isa lang', artist: 'Arthur Miguel', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Isa+Lang', youtubeVideoID: 'XL3QTHG2tVI' },
+  { title: 'Tadhana', artist: 'Arthur Miguel', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Tadhana', youtubeVideoID: '8u9fM7wQx5U' },
+  { title: 'Kupido', artist: 'Arthur Miguel', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Kupido', youtubeVideoID: 'h_7aW9vN2m1' },
+
+  // ---------------- TJ MONTERDE ----------------
+  { title: 'Palagi', artist: 'TJ Monterde', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Palagi', youtubeVideoID: 'v82VtUUGFqk' },
+  { title: 'Dating Tayo', artist: 'TJ Monterde', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Dating+Tayo', youtubeVideoID: 'r4f_pzRm058' },
+  { title: 'Tulad Mo', artist: 'TJ Monterde', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Tulad+Mo', youtubeVideoID: 'fCUa7vxhgKo' },
+  { title: 'Ikaw At Ako', artist: 'TJ Monterde', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Ikaw+At+Ako', youtubeVideoID: 'hifLWrMh-T4' },
+  { title: 'Mahika', artist: 'TJ Monterde', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Mahika', youtubeVideoID: 'gQqc4EItqxU' },
+  { title: 'Karera', artist: 'TJ Monterde', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Karera', youtubeVideoID: 'HZL617BHIxI' },
+  { title: 'Kahit Kunwari', artist: 'TJ Monterde', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Kahit+Kunwari', youtubeVideoID: 'v4d-rZ2N3Gg' },
+
+  // ---------------- SUNKISSED LOLA ----------------
+  { title: 'Pasilyo', artist: 'SunKissed Lola', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Pasilyo', youtubeVideoID: 'XToA-1dZYWA' },
+  { title: 'Makikita Ba Ang Kislap', artist: 'SunKissed Lola', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Makikita+Ba', youtubeVideoID: 'RHlyGzWo0Lk' },
+  { title: 'Damag', artist: 'SunKissed Lola', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Damag', youtubeVideoID: '1j7y-D2-qI8' },
+  { title: 'Pakiusap', artist: 'SunKissed Lola', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Pakiusap', youtubeVideoID: '6XQ46Fv2_aY' },
+  { title: 'HKM', artist: 'SunKissed Lola', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=HKM', youtubeVideoID: 'iVz68K_Q4G0' },
+  { title: 'Dalangin', artist: 'SunKissed Lola', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Dalangin', youtubeVideoID: 'f3PzLxE7GKY' },
+  { title: 'White Toyota', artist: 'SunKissed Lola', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=White+Toyota', youtubeVideoID: 'y0Vb_mZq71w' },
+  { title: 'Paki Sabi', artist: 'SunKissed Lola', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Paki+Sabi', youtubeVideoID: '6hOFULDlu6A' },
+
+  // ---------------- BEN&BEN ----------------
+  { title: 'Kathang Isip', artist: 'Ben&Ben', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Kathang+Isip', youtubeVideoID: 'sKa8HtWgOxk' },
+  { title: 'Leaves', artist: 'Ben&Ben', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Leaves', youtubeVideoID: 'WOQ1t_u8HTw' },
+  { title: 'Maybe The Night', artist: 'Ben&Ben', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Maybe+The+Night', youtubeVideoID: 'hJhVURhdLEg' },
+
+  // ---------------- IV OF SPADES ----------------
+  { title: 'Mundo', artist: 'IV of Spades', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Mundo', youtubeVideoID: 'omFa4Yk9Fmg' },
+  { title: 'Come Inside Of My Heart', artist: 'IV of Spades', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Come+Inside', youtubeVideoID: 'HxwokFPIguU' },
+
+  // ---------------- MOIRA DELA TORRE ----------------
+  { title: 'Malaya', artist: 'Moira Dela Torre', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Malaya', youtubeVideoID: 'UPJCS3TPQDA' },
+
+  // ---------------- DECEMBER AVENUE ----------------
+  { title: "Kung 'Di Rin Lang Ikaw", artist: 'December Avenue', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Kung+Di+Rin', youtubeVideoID: 'P1pwbnzbe7g' },
+  { title: 'Huling Sandali', artist: 'December Avenue', coverImageURL: 'https://placehold.co/600x600/282828/FFF?text=Huling+Sandali', youtubeVideoID: 'MyMmB7vnO9c' }
 ];
 
 // Save songs to localStorage
+const PLAYLIST_VERSION = 'filipino-vibes-v2';
+if (localStorage.getItem('playlistVersion') !== PLAYLIST_VERSION) {
+  localStorage.removeItem('spotifyCloneSongs');
+  localStorage.setItem('playlistVersion', PLAYLIST_VERSION);
+  // Reload songs from default
+  songs = JSON.parse(localStorage.getItem('spotifyCloneSongs')) || songs;
+}
+
 function saveSongs() {
   localStorage.setItem('spotifyCloneSongs', JSON.stringify(songs));
 }
