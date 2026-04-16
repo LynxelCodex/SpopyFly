@@ -481,6 +481,7 @@ function showView(viewName) {
 /* === EMPTY STATE === */
 function showEmptyState() {
   const homeView = document.getElementById('view-home');
+  if (!homeView) return;
   homeView.innerHTML = `
     <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:24px;">
       <div style="font-size:4rem;">🎵</div>
@@ -504,6 +505,7 @@ async function generateRecommendations(trackIndex) {
 
 function displayRecommendations(relatedTracks, discographyTracks, artist) {
   const homeView = document.getElementById('view-home');
+  if (!homeView) return;
   homeView.innerHTML = '';
 
   if (relatedTracks && relatedTracks.length > 0) {
