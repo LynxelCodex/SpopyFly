@@ -325,6 +325,7 @@ function createFeaturedCard(song, index) {
 
 function renderTrackGrid() {
   const grid = document.getElementById('trackGrid');
+  if (!grid) return;
   grid.innerHTML = '';
   songs.forEach((song, i) => grid.appendChild(createTrackCard(song, i)));
   safeLucide();
@@ -332,6 +333,7 @@ function renderTrackGrid() {
 
 function renderFeaturedGrid() {
   const grid = document.getElementById('featuredGrid');
+  if (!grid) return;
   grid.innerHTML = '';
   songs.slice(0, 6).forEach((song, i) => grid.appendChild(createFeaturedCard(song, i)));
   safeLucide();
@@ -339,6 +341,7 @@ function renderFeaturedGrid() {
 
 function renderRecentGrid() {
   const grid = document.getElementById('recentGrid');
+  if (!grid) return;
   grid.innerHTML = '';
   if (state.recentlyPlayed.length === 0) grid.innerHTML = '<p class="empty-state">Nothing played yet...</p>';
   else state.recentlyPlayed.forEach(i => grid.appendChild(createTrackCard(songs[i], i)));
@@ -347,6 +350,7 @@ function renderRecentGrid() {
 
 function renderLibraryList() {
   const list = document.getElementById('libraryList');
+  if (!list) return;
   list.innerHTML = '';
   songs.forEach((song, i) => {
     const item = document.createElement('div');
@@ -359,6 +363,7 @@ function renderLibraryList() {
 
 function renderArtistGrid() {
   const grid = document.getElementById('artistGrid');
+  if (!grid) return;
   grid.innerHTML = '';
   const artistMap = {};
   songs.forEach((s, i) => {
@@ -406,6 +411,7 @@ const CATEGORIES = [
 
 function renderCategories() {
   const grid = document.getElementById('categoryGrid');
+  if (!grid) return;
   grid.innerHTML = '';
   CATEGORIES.forEach(cat => {
     const card = document.createElement('div');
@@ -418,6 +424,7 @@ function renderCategories() {
 
 function renderSearchResults(query) {
   const grid = document.getElementById('searchGrid');
+  if (!grid) return;
   grid.innerHTML = '';
   const q = query.trim().toLowerCase();
   if (!q) { grid.innerHTML = '<p class="empty-state">Start typing...</p>'; return; }
