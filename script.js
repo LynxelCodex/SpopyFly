@@ -218,7 +218,7 @@ async function searchYouTube(query) {
     return data.items.map(item => ({
       title: item.snippet.title,
       artist: item.snippet.channelTitle,
-      coverImageURL: item.snippet.thumbnails.high?.url || item.snippet.thumbnails.default?.url || 'https://via.placeholder.com/226',
+      coverImageURL: item.snippet.thumbnails.high?.url || item.snippet.thumbnails.default?.url || 'https://placehold.co/226x226/282828/FFF?text=No+Art',
       youtubeVideoID: item.id.videoId
     }));
   } catch (error) {
