@@ -63,6 +63,15 @@ function addSongToLibrary(song) {
   }
 }
 
+function handleYouTubeTrackClick(song) {
+  addSongToLibrary(song);
+  const trackIndex = songs.findIndex(s => s.youtubeVideoID === song.youtubeVideoID);
+  if (trackIndex !== -1) {
+    loadTrack(trackIndex);
+    generateRecommendations(trackIndex);
+  }
+}
+
 // Search YouTube for songs
 async function searchYouTube(query) {
   if (!YOUTUBE_API_KEY) {
@@ -281,7 +290,7 @@ function createTrackCard(song, index, showAddBtn = false) {
   card.dataset.index = index;
   let addButton = '';
   if (showAddBtn) {
-    addButton = `<button class="card-play-btn youtube-add-btn" style="background:#E63946;" onclick="addSongToLibrary({title:'${escapeHtml(song.title)}',artist:'${escapeHtml(song.artist)}',coverImageURL:'${song.coverImageURL}',youtubeVideoID:'${song.youtubeVideoID}'})"><i data-lucide="plus"></i></button>`;
+    addButton = `<button class="card-play-btn youtube-add-btn" style="background:#E63946;" onclick="handleYouTubeTrackClick({title:'${escapeHtml(song.title)}',artist:'${escapeHtml(song.artist)}',coverImageURL:'${song.coverImageURL}',youtubeVideoID:'${song.youtubeVideoID}'})"><i data-lucide="plus"></i></button>`;
   } else {
     addButton = `<button class="card-play-btn"><i data-lucide="play"></i></button>`;
   }
@@ -462,6 +471,57 @@ function showView(viewName) {
   document.getElementById('mainContent').scrollTop = 0;
 }
 
+/* === EMPTY STATE === */
+function showEmptyState() {
+  const homeView = document.getElementById('view-home');
+  homeView.innerHTML = `
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:24px;">
+      <div style="font-size:4rem;">🎵</div>
+      <h1 style="font-size:2.4rem;font-weight:700;margin:0;">Search for music to get started</h1>
+      <p style="font-size:1.4rem;color:var(--text-secondary);margin:0;">Try searching for an artist or song</p>
+    </div>
+  `;
+}
+
+/* === RECOMMENDATIONS === */
+async function generateRecommendations(trackIndex) {
+  const track = songs[trackIndex];
+  if (!track) return;
+
+  const artist = track.artist;
+  const relatedResults = await searchYouTube(`${artist} similar`);
+  const discographyResults = await searchYouTube(`${artist} all songs`);
+
+  displayRecommendations(relatedResults.slice(0, 5), discographyResults.slice(0, 5), artist);
+}
+
+function displayRecommendations(relatedTracks, discographyTracks, artist) {
+  const homeView = document.getElementById('view-home');
+  homeView.innerHTML = '';
+
+  if (relatedTracks && relatedTracks.length > 0) {
+    const section1 = document.createElement('section');
+    section1.className = 'content-section';
+    section1.innerHTML = '<h2 class="section-title">Similar to this track</h2>';
+    const grid1 = document.createElement('div');
+    grid1.className = 'track-grid';
+    relatedTracks.forEach((track, idx) => grid1.appendChild(createTrackCard(track, -1000 - idx, true)));
+    section1.appendChild(grid1);
+    homeView.appendChild(section1);
+  }
+
+  if (discographyTracks && discographyTracks.length > 0) {
+    const section2 = document.createElement('section');
+    section2.className = 'content-section';
+    section2.innerHTML = `<h2 class="section-title">More from ${escapeHtml(artist)}</h2>`;
+    const grid2 = document.createElement('div');
+    grid2.className = 'track-grid';
+    discographyTracks.forEach((track, idx) => grid2.appendChild(createTrackCard(track, -2000 - idx, true)));
+    section2.appendChild(grid2);
+    homeView.appendChild(section2);
+  }
+}
+
 /* === VIDEO OVERLAY LOGIC === */
 let isVideoMode = false;
 
@@ -535,16 +595,10 @@ function closeVideoOverlay() {
 
 /* === EVENTS & INITIALIZATION === */
 document.addEventListener('DOMContentLoaded', () => {
-  renderFeaturedGrid();
-  renderTrackGrid();
-  renderRecentGrid();
+  showEmptyState();
   renderLibraryList();
   renderCategories();
-  renderArtistGrid();
   safeLucide();
-
-  const h = new Date().getHours();
-  document.querySelector('#view-home .section-title').textContent = h < 12 ? 'Good Morning' : h < 17 ? 'Good Afternoon' : 'Good Evening';
 
   document.querySelectorAll('.nav-item, .mobile-nav-btn').forEach(btn => {
     btn.addEventListener('click', () => {
